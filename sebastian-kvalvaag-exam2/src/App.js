@@ -11,8 +11,7 @@ function App() {
       {
         method: "GET",
         headers: {
-          Authorization:
-            "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjA3LCJuYW1lIjoic2ViYmU5MiIsImVtYWlsIjoiU2ViS3ZhOTUxMzhAc3R1ZC5ub3JvZmYubm8iLCJhdmF0YXIiOm51bGwsImJhbm5lciI6bnVsbCwiaWF0IjoxNjc0NjIyOTY0fQ.4pPaCVyAwa_PAytsJTqSzWdRG3RWVxhJEx2GqgT3xKI",
+          Authorization: "",
         },
       }
     );
