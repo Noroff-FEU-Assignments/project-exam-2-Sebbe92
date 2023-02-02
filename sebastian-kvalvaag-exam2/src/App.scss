@@ -1,19 +1,67 @@
-$primary: #035157;
-$body-bg: rgb(57, 57, 57);
+$primary: #052d41;
+$secondary: #024d3d;
+$info: #035157;
+$body-bg: #202020;
 $body-color: #fff;
+$nav-height: 86px;
+$border-radius: 0.2rem;
 @import "../node_modules/bootstrap/scss/bootstrap";
 
+p {
+  word-break: break-all;
+}
+ul {
+  list-style: none;
+}
 .fs-7 {
   font-size: 0.9em;
 }
 main {
   min-height: 100vh;
 }
+.mt-nav-h {
+  margin-top: $nav-height;
+}
+.shadow-inset-sm {
+  box-shadow: inset 0px 0px 15px rgba(0, 0, 0, 0.509);
+}
+.sec-nav-btns-y {
+  margin-top: 25px;
+}
+.sec-nav-btns-x {
+  left: -45px;
+}
+.icon {
+  width: 25px;
+}
+.side-nav_button {
+  width: 45px;
+  height: 40px;
+  border-radius: 5px 0 0 5px;
+  border: solid 1px white;
+  border-right: none;
+  display: flex;
+  align-items: center;
+  opacity: 0.8;
+}
+.tag {
+  width: fit-content;
+  background-color: white;
+  color: black;
+  padding: 5px 10px;
+  border-radius: 50vw;
+}
+.post {
+  max-width: 900px;
+  height: fit-content;
+}
+
 .user-widget {
   position: relative;
   border-radius: $border-radius-xl;
   border: 2px solid #fff;
-  height: fit-content;
+  min-height: fit-content;
+  max-height: 100px;
   margin-right: 30px;
   padding-right: 30px;
 }
@@ -29,5 +77,23 @@ main {
   img {
     width: 100%;
     object-fit: cover;
+  }
+}
+
+.profile_img {
+  img {
+    width: 50px;
+    aspect-ratio: 1;
+    border-radius: 100%;
+  }
+}
+.menu {
+  max-width: calc(100% - 50px);
+  top: $nav-height !important;
+  left: 50px !important;
+  margin-left: 0 !important;
+  @media (min-width: "450px") {
+    margin-left: 50px !important;
+    left: auto !important;
   }
 }

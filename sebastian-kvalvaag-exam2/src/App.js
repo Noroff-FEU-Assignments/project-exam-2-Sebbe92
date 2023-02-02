@@ -1,33 +1,38 @@
 import "./App.scss";
-import TopNav from "./components/TopNav";
-
-import { useEffect, useState } from "react";
+import TopNav from "./components/nav/TopNav";
+import useLocalStorage from "./hooks/useLocalStorage";
+import UserContext from "./context/UserContext";
+import Login from "./components/Login";
+import SideNav from "./components/nav/SideNav";
+import Home from "./pages/Home.js";
+import useAxios from "./hooks/useAxios";
+import SignUpForm from "./components/SignUpForm";
 
 function App() {
-  const [user, setUser] = useState({});
-  const getProfile = async () => {
-    const response = await fetch(
-      "https://api.noroff.dev/api/v1/social/profiles/sebbe92",
-      {
-        method: "GET",
-        headers: {
-          Authorization: "",
-        },
-      }
-    );
-    const data = await response.json();
-    setUser(data);
-    return data;
+  const http = useAxios();
+  const [user, setUser] = useLocalStorage("user", "");
+  console.log(user);
+  const follow = async () => {
+    const response = await http.get(`profiles/sebbe92?_following=true`, {
+      name: "sebbe92",
+    });
+    console.log(response);
   };
-  useEffect(() => {
-    getProfile();
-  }, []);
-
   return (
-    <main>
-      <TopNav></TopNav>
-      <h2>{user.name}</h2>
-    </main>
+    <UserContext.Provider value={[user, setUser]}>
+      {user ? (
+        <main className="position-relative ">
+          <SideNav />
+          <TopNav user={user}></TopNav>
+          <Home />
+        </main>
+      ) : (
+        <>
+          <Login />
+          <SignUpForm />
+        </>
+      )}
+    </UserContext.Provider>
   );
 }
 
