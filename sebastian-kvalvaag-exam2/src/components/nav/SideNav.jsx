@@ -1,24 +1,27 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Menu from "./Menu";
 import addProfileIcon from "../../icons/add-people.svg";
 import addPostIcon from "../../icons/add-post.svg";
 import followingIcon from "../../icons/following.svg";
 import settingsIcon from "../../icons/settings.svg";
+import MenuContext from "../../context/MenuContext";
 
 export default function SideNav() {
-  const [currentMenuPage, setCurrentMenuPage] = useState("post");
-  const [show, setShow] = useState(true);
+  const [currentMenuPage, setCurrentMenuPage] = useContext(MenuContext);
+  const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = () => {
+    setShow(true);
+  };
   return (
     <div className="position-fixed  end-0 center d-flex flex-column sec-nav-btns-y">
       <Button
         className="side-nav_button mb-2"
         onClick={() => {
+          setCurrentMenuPage(1);
           handleShow();
-          setCurrentMenuPage();
         }}
         variant="secondary"
       >
@@ -26,21 +29,30 @@ export default function SideNav() {
       </Button>
       <Button
         className="side-nav_button mb-2"
-        onClick={handleShow}
+        onClick={() => {
+          setCurrentMenuPage(2);
+          handleShow();
+        }}
         variant="secondary"
       >
         <img src={addProfileIcon} alt="add profile icon" className="icon" />
       </Button>
       <Button
         className="side-nav_button mb-2"
-        onClick={handleShow}
+        onClick={() => {
+          setCurrentMenuPage(3);
+          handleShow();
+        }}
         variant="secondary"
       >
         <img src={followingIcon} alt="following icon" className="icon" />
       </Button>
       <Button
         className="side-nav_button mb-2"
-        onClick={handleShow}
+        onClick={() => {
+          setCurrentMenuPage(4);
+          handleShow();
+        }}
         variant="secondary"
       >
         <img src={settingsIcon} alt="settings icon" className="icon" />

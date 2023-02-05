@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import PostForm from "./submenus/PostForm";
@@ -7,9 +7,13 @@ import addPostIcon from "../../icons/add-post.svg";
 import followingIcon from "../../icons/following.svg";
 import settingsIcon from "../../icons/settings.svg";
 import FindProfile from "./submenus/FindProfile";
+import Following from "./submenus/Following";
+import Settings from "./submenus/Settings";
+import MenuContext from "../../context/MenuContext";
 
 export default function Menu({ name, ...props }) {
-  const [currentMenu, setCurrentMenu] = useState(1);
+  const [currentMenu, setCurrentMenu] = useContext(MenuContext);
+  console.log(currentMenu);
   return (
     <>
       <Offcanvas {...props} className="menu bg-info">
@@ -62,9 +66,9 @@ export default function Menu({ name, ...props }) {
               case 2:
                 return <FindProfile />;
               case 3:
-                return <h2>Following</h2>;
+                return <Following />;
               case 4:
-                return <h2>settings</h2>;
+                return <Settings />;
             }
           })()}
         </Offcanvas.Body>

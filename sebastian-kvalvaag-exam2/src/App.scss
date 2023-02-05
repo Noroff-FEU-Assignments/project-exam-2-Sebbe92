@@ -34,6 +34,15 @@ main {
 .icon {
   width: 25px;
 }
+.avatar {
+  max-width: 100px;
+}
+.banner {
+  height: 300px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
 .side-nav_button {
   width: 45px;
   height: 40px;
@@ -81,10 +90,23 @@ main {
 }
 
 .profile_img {
+  border: 2px solid $white;
+  background-color: #fff;
+  border-radius: 100%;
+  overflow: hidden;
   img {
     width: 50px;
     aspect-ratio: 1;
-    border-radius: 100%;
+  }
+}
+.profile_img__big {
+  border: 2px solid $white;
+  background-color: #fff;
+  border-radius: 100%;
+  overflow: hidden;
+  img {
+    width: 200px;
+    aspect-ratio: 1;
   }
 }
 .menu {

@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
-import testImg from "../images/test-img.jpg";
+
 import useAxios from "../hooks/useAxios";
 import UserContext from "../context/UserContext";
 import Overlay from "react-bootstrap/Overlay";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import defaultAvatar from "../images/placeholder.png";
 
 export default function UserWidget(props) {
   const [user, setUser] = useContext(UserContext);
@@ -18,6 +19,7 @@ export default function UserWidget(props) {
   function logout() {
     setUser(null);
   }
+  console.log(user);
   return (
     <div className="user-widget d-flex bg-secondary rounded text-white ps-3 position-absolute end-0">
       <div className="me-4 my-2">
@@ -36,7 +38,7 @@ export default function UserWidget(props) {
         </div>
       </div>
       <div className="user-image">
-        <img src={testImg} alt="avatar" />
+        <img src={user.avatar ? user.avatar : defaultAvatar} alt="avatar" />
       </div>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>

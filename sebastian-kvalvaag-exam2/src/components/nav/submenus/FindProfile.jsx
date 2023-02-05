@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
+import Button from "react-bootstrap/Button";
 import ProfileWidget from "../../ProfileWidget";
 import useAxios from "../../../hooks/useAxios";
-
+import addProfileIcon from "../../../icons/add-people.svg";
 export default function FindProfile() {
   const [profiles, setProfiles] = useState(null);
   const [searchInput, setSearchInput] = useState("");
@@ -11,9 +12,7 @@ export default function FindProfile() {
   let offset = 0;
   let tempList = [];
   const getAllProfiles = async () => {
-    console.log(profiles, tempList, offset);
     const test = await getProfiles(offset);
-    console.log(test);
     tempList = tempList.concat(test);
     offset = offset + 100;
     if (test[0]) {
@@ -54,7 +53,14 @@ export default function FindProfile() {
     console.log(newList);
   };
   //display profilewidgets for each result
-
+  const follow = async (name) => {
+    try {
+      const response = await http.put(`profiles/${name}/follow`);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <h3>Find People</h3>
@@ -66,7 +72,16 @@ export default function FindProfile() {
       />
       {filteredList.length > 0 ? (
         filteredList.map((profile, i) => (
-          <ProfileWidget key={i} profile={profile} />
+          <>
+            <ProfileWidget key={i} profile={profile} />
+            <Button
+              onClick={() => {
+                follow(profile.name);
+              }}
+            >
+              <img src={addProfileIcon} />
+            </Button>
+          </>
         ))
       ) : (
         <></>
