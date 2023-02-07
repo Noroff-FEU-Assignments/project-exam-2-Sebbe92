@@ -29,7 +29,6 @@ export default function PostForm() {
           placeholder="Post title.."
           onChange={(e) => {
             setTitle(e.target.value);
-            console.log(postObject);
           }}
         />
         <Form.Text className="text-muted">{titleError}</Form.Text>
@@ -60,7 +59,7 @@ export default function PostForm() {
         <Form.Label>Post body(required)</Form.Label>
         <Form.Control
           as="textarea"
-          rows={10}
+          rows={6}
           placeholder="Hello world! My name is {generic.name}, and i am interested in {generic.interests}"
           onChange={(e) => {
             setBody(e.target.value);

@@ -5,6 +5,7 @@ $body-bg: #202020;
 $body-color: #fff;
 $nav-height: 86px;
 $border-radius: 0.2rem;
+$modal-content-bg: $info;
 @import "../node_modules/bootstrap/scss/bootstrap";
 
 p {
@@ -24,6 +25,9 @@ main {
 }
 .shadow-inset-sm {
   box-shadow: inset 0px 0px 15px rgba(0, 0, 0, 0.509);
+}
+.z-index-10 {
+  z-index: 10;
 }
 .sec-nav-btns-y {
   margin-top: 25px;
@@ -74,6 +78,7 @@ main {
   margin-right: 30px;
   padding-right: 30px;
 }
+
 .user-image {
   right: -30px;
   position: absolute;
@@ -95,7 +100,7 @@ main {
   border-radius: 100%;
   overflow: hidden;
   img {
-    width: 50px;
+    width: 40px;
     aspect-ratio: 1;
   }
 }
@@ -118,4 +123,10 @@ main {
     margin-left: 50px !important;
     left: auto !important;
   }
+}
+
+.vertical-scroll-container {
+  display: flex;
+
+  overflow-x: scroll;
 }

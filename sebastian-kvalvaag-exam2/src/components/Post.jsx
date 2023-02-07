@@ -16,10 +16,10 @@ function Post(props) {
     const response = await http.put(`posts/${props.children.id}/react/👍`);
     console.log(response);
   };
-
   return (
     <div className="bg-info shadow-inset-sm mb-2 py-2 px-3 post me-4">
       <ProfileWidget profile={props.children.author} />
+      <dt>{props.children.updated}</dt>
       <div
         onClick={() => {
           console.log(props.children);

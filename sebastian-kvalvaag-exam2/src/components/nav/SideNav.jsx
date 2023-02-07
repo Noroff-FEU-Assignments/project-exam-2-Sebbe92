@@ -16,7 +16,7 @@ export default function SideNav() {
     setShow(true);
   };
   return (
-    <div className="position-fixed  end-0 center d-flex flex-column sec-nav-btns-y">
+    <div className="position-fixed  end-0 center d-flex flex-column sec-nav-btns-y z-index-10">
       <Button
         className="side-nav_button mb-2"
         onClick={() => {

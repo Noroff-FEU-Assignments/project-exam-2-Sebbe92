@@ -21,20 +21,25 @@ export default function UserWidget(props) {
   }
   console.log(user);
   return (
-    <div className="user-widget d-flex bg-secondary rounded text-white ps-3 position-absolute end-0">
+    <a
+      href={`profile?name=${user.name}`}
+      className="user-widget d-flex bg-secondary rounded text-white ps-3 position-absolute end-0"
+    >
       <div className="me-4 my-2">
         <div className="mt-1">
           <h2 className="fs-4 m-0">{user.name}</h2>
         </div>
         <div className="d-flex justify-content-center fs-7">
-          <a
+          <Button
+            variant="secondary"
+            className="p-0"
             onClick={(e) => {
               e.preventDefault();
               handleShow();
             }}
           >
             Logout
-          </a>
+          </Button>
         </div>
       </div>
       <div className="user-image">
@@ -65,6 +70,6 @@ export default function UserWidget(props) {
           </Button>
         </Modal.Footer>
       </Modal>
-    </div>
+    </a>
   );
 }

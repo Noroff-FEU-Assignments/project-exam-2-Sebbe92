@@ -9,13 +9,7 @@ export default function TopNav(props) {
   return (
     <Navbar bg="primary" expand="lg" fixed="top" className="shadow-sm">
       <Container>
-        <Navbar.Brand
-          href="#home"
-          className="text-white text-center"
-          onClick={() => {
-            setPage({ page: "home" });
-          }}
-        >
+        <Navbar.Brand href="/" className="text-white text-center">
           Social
           <br />
           Hub

@@ -5,22 +5,29 @@ import Post from "../components/Post";
 import Button from "react-bootstrap/Button";
 import CenteredModal from "../components/CenteredModal";
 import ModalContext from "../context/ModalContext";
-import PageContext from "../context/PageContext";
+import UserContext from "../context/UserContext";
 import ProfileImageWBanner from "../components/ProfileImageWBanner";
+import { useLocation } from "react-router";
+import ProfileWidget from "../components/ProfileWidget";
+import { Modal } from "react-bootstrap";
+import EditForm from "../components/EditForm";
 const postLimit = 20;
 
 export default function Profile(props) {
   const http = useAxios();
   const [posts, setPosts] = useState(null);
-  const [page, setPage] = useContext(PageContext);
+  const [user, setUser] = useContext(UserContext);
   const [profile, setProfile] = useState(null);
-
+  const [editModal, setEditModal] = useState(null);
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const name = params.get("name");
+  console.log(params, location);
   const getProfile = async () => {
     const response = await http.get(
-      `profiles/${page.profileName}?_followers=true&_following=true&_posts=true`
+      `profiles/${name}?_followers=true&_following=true&_posts=true`
     );
     setProfile(response.data);
-    console.log(response);
   };
 
   async function getProfilePosts(page) {
@@ -41,6 +48,7 @@ export default function Profile(props) {
   }
   useEffect(() => {
     getProfile();
+    console.log(profile);
   }, []);
 
   return (
@@ -52,19 +60,84 @@ export default function Profile(props) {
             avatar={profile.avatar}
           />
           <h1 className="text-center">{profile.name}</h1>
+          {profile.followers.some((follower) => follower.name === user.name) ? (
+            <Button>UnFollow</Button>
+          ) : (
+            <Button>Follow</Button>
+          )}
 
           <section>
             <h2>Following</h2>
-            username123
+            <ul className="vertical-scroll-container bg-info py-3 shadow-inset-sm">
+              {profile.following.map((profile) => (
+                <li className="mx-3">
+                  <ProfileWidget
+                    profile={{ name: profile.name, avatar: profile.avatar }}
+                  />
+                </li>
+              ))}
+            </ul>
           </section>
           <section>
             <h2>Followers</h2>
-            username123
+            <ul className="vertical-scroll-container bg-info py-3 shadow-inset-sm">
+              {profile.followers.map((profile) => (
+                <li className="mx-3" key={profile.name}>
+                  <ProfileWidget
+                    profile={{ name: profile.name, avatar: profile.avatar }}
+                  />
+                </li>
+              ))}
+            </ul>
           </section>
           <section>
-            <h2>Posts</h2>
-            psot post post
+            {profile.name === user.name ? (
+              <ul>
+                {profile.posts.map((post, i) => (
+                  <li key={i}>
+                    <a>{post.title}</a>{" "}
+                    <Button
+                      onClick={() => {
+                        setEditModal(post.id);
+                      }}
+                    >
+                      edit
+                    </Button>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <ul>
+                <h2>Posts</h2>
+                {profile.posts.map((post, i) => (
+                  <li key={i}>
+                    <a>{post.title}</a>
+                  </li>
+                ))}
+              </ul>
+            )}
           </section>
+          <Modal
+            show={editModal}
+            onHide={() => {
+              setEditModal(null);
+            }}
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+          >
+            <Modal.Header closeButton>
+              <Modal.Title id="contained-modal-title-vcenter">
+                Modal heading
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <EditForm id={editModal} />
+            </Modal.Body>
+            <Modal.Footer>
+              <Button onClick={props.onHide}>Close</Button>
+            </Modal.Footer>
+          </Modal>
         </div>
       ) : (
         <>Loading...</>

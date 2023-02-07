@@ -1,15 +1,13 @@
 import React, { useContext } from "react";
 import backupImage from "../images/placeholder.png";
 import PageContext from "../context/PageContext";
-
+import { Link } from "react-router-dom";
 export default function ProfileWidget(props) {
   const [page, setPage] = useContext(PageContext);
   return (
-    <div
+    <a
+      href={`/profile?name=${props.profile.name}`}
       className="d-flex align-items-center gap-3 "
-      onClick={() => {
-        setPage({ page: "profile", profileName: props.profile.name });
-      }}
     >
       <div className="profile_img">
         <img
@@ -18,6 +16,6 @@ export default function ProfileWidget(props) {
         />
       </div>
       <h3>{props.profile.name}</h3>
-    </div>
+    </a>
   );
 }
