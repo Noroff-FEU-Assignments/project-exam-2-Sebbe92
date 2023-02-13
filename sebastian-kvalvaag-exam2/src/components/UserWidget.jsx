@@ -23,7 +23,7 @@ export default function UserWidget(props) {
   return (
     <a
       href={`profile?name=${user.name}`}
-      className="user-widget d-flex bg-secondary rounded text-white ps-3 position-absolute end-0"
+      className="user-widget d-flex bg-secondary rounded text-white ps-3 position-absolute end-0 mw-50"
     >
       <div className="me-4 my-2">
         <div className="mt-1">
@@ -32,7 +32,7 @@ export default function UserWidget(props) {
         <div className="d-flex justify-content-center fs-7">
           <Button
             variant="secondary"
-            className="p-0"
+            className="p-0 mt-1 cursor-pointer"
             onClick={(e) => {
               e.preventDefault();
               handleShow();
@@ -42,14 +42,14 @@ export default function UserWidget(props) {
           </Button>
         </div>
       </div>
-      <div className="user-image">
+      <div className="user-image bg-primary">
         <img src={user.avatar ? user.avatar : defaultAvatar} alt="avatar" />
       </div>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Modal heading</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+        <Modal.Body>Are you sure you want to log out?</Modal.Body>
         <Modal.Footer>
           <Button
             variant="secondary"

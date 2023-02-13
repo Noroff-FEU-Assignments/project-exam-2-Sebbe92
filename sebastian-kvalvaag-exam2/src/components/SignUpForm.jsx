@@ -16,7 +16,7 @@ export default function SignUpForm() {
     console.log(response);
   };
   return (
-    <div className="bg-white p-5 text-black">
+    <div className="p-5 my-auto">
       <Form
         className=""
         onSubmit={(e) => {

@@ -23,7 +23,7 @@ export default function Login() {
     }
   }
   return (
-    <div className="bg-white p-5">
+    <div className="welcome-card p-5">
       <Form
         onSubmit={(e) => {
           e.preventDefault();

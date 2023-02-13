@@ -32,7 +32,7 @@ function Post(props) {
           <></>
         )}
       </div>
-      <p>{props.children.body}</p>
+      <p className="break-all">{props.children.body}</p>
       <ul className="d-flex flex-wrap">
         {props.children.tags ? (
           props.children.tags.map((tag, i) => (

@@ -8,8 +8,12 @@ $border-radius: 0.2rem;
 $modal-content-bg: $info;
 @import "../node_modules/bootstrap/scss/bootstrap";
 
-p {
+.break-all {
   word-break: break-all;
+}
+
+a {
+  text-decoration: none;
 }
 ul {
   list-style: none;
@@ -64,9 +68,23 @@ main {
   padding: 5px 10px;
   border-radius: 50vw;
 }
+.welcome-card {
+  background-color: $info;
+  border-radius: $border-radius-xl;
+  border: 2px solid white;
+}
+.welcome-background {
+  max-width: 600px;
+  background-image: url("./images/pexels-btgl-bg-img-250kb.jpg");
+}
 .post {
+  /*   transform: translateX(-60px); */
+  transition: all 500ms ease-out;
   max-width: 900px;
   height: fit-content;
+}
+.post.show {
+  transform: translateX(0);
 }
 
 .user-widget {
@@ -130,3 +148,7 @@ main {
 
   overflow-x: scroll;
 }
+.vh-100 {
+  height: 100vh;
+}
+/*Welcome Page*/

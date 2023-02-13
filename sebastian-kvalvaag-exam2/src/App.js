@@ -3,7 +3,7 @@ import TopNav from "./components/nav/TopNav";
 import useLocalStorage from "./hooks/useLocalStorage";
 import UserContext from "./context/UserContext";
 import MenuContext from "./context/MenuContext";
-import Login from "./components/Login";
+import Login from "./pages/Login";
 import SideNav from "./components/nav/SideNav";
 import Home from "./pages/Home.js";
 import Welcome from "./pages/Welcome";
@@ -13,8 +13,9 @@ import { useState } from "react";
 import Profile from "./pages/Profile";
 import PageContext from "./context/PageContext";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Link, RouterProvider } from "react-router-dom";
 import SignUp from "./pages/SignUp";
+import LoggedOutNav from "./components/nav/LoggedOutNav";
 
 function App() {
   const http = useAxios();
@@ -66,7 +67,9 @@ function App() {
             </main>
           ) : (
             <>
-              <RouterProvider router={loggedOut} />
+              <div className="vh-100 mx-auto d-flex flex-column align-items-center justify-content-center welcome-background animate-left">
+                <RouterProvider router={loggedOut} />
+              </div>
             </>
           )}
         </UserContext.Provider>
