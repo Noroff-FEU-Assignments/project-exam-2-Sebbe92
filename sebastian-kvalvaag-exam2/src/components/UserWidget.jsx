@@ -1,13 +1,10 @@
-import React, { useContext, useEffect, useState, useRef } from "react";
-
-import useAxios from "../hooks/useAxios";
+import React, { useContext, useState } from "react";
 import UserContext from "../context/UserContext";
-import Overlay from "react-bootstrap/Overlay";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import defaultAvatar from "../images/placeholder.png";
 
-export default function UserWidget(props) {
+export default function UserWidget() {
   const [user, setUser] = useContext(UserContext);
 
   //logout modal

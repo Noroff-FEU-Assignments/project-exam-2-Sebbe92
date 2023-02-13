@@ -1,28 +1,22 @@
 import React, { useContext } from "react";
 import useAxios from "../hooks/useAxios";
 import { useEffect, useState } from "react";
-import Post from "../components/Post";
 import Button from "react-bootstrap/Button";
-import CenteredModal from "../components/CenteredModal";
-import ModalContext from "../context/ModalContext";
 import UserContext from "../context/UserContext";
 import ProfileImageWBanner from "../components/ProfileImageWBanner";
 import { useLocation } from "react-router";
 import ProfileWidget from "../components/ProfileWidget";
 import { Modal } from "react-bootstrap";
 import EditForm from "../components/EditForm";
-const postLimit = 20;
 
 export default function Profile(props) {
   const http = useAxios();
-  const [posts, setPosts] = useState(null);
   const [user, setUser] = useContext(UserContext);
   const [profile, setProfile] = useState(null);
   const [editModal, setEditModal] = useState(null);
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const name = params.get("name");
-  console.log(params, location);
   const getProfile = async () => {
     const response = await http.get(
       `profiles/${name}?_followers=true&_following=true&_posts=true`
@@ -30,7 +24,7 @@ export default function Profile(props) {
     setProfile(response.data);
   };
 
-  async function getProfilePosts(page) {
+  /* async function getProfilePosts(page) {
     try {
       const response = await http.get(
         `/profiles/${props.name}?limit=${postLimit}&offset=${page}&_author=true&_comments=true`
@@ -45,10 +39,9 @@ export default function Profile(props) {
     } catch (error) {
       console.log(error);
     }
-  }
+  } */
   useEffect(() => {
     getProfile();
-    console.log(profile);
   }, []);
 
   return (
@@ -95,7 +88,7 @@ export default function Profile(props) {
               <ul>
                 {profile.posts.map((post, i) => (
                   <li key={i}>
-                    <a>{post.title}</a>{" "}
+                    <h4>{post.title}</h4>{" "}
                     <Button
                       onClick={() => {
                         setEditModal(post.id);
@@ -111,7 +104,7 @@ export default function Profile(props) {
                 <h2>Posts</h2>
                 {profile.posts.map((post, i) => (
                   <li key={i}>
-                    <a>{post.title}</a>
+                    <h4>{post.title}</h4>
                   </li>
                 ))}
               </ul>

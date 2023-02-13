@@ -21,7 +21,7 @@ export default function SignUpForm() {
         className=""
         onSubmit={(e) => {
           e.preventDefault();
-          if (password == repeatPassword && name && email) {
+          if (password === repeatPassword && name && email) {
             register();
           } else {
             console.log(name, email, password, repeatPassword);

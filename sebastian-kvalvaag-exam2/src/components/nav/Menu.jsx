@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import PostForm from "./submenus/PostForm";
@@ -13,7 +13,7 @@ import MenuContext from "../../context/MenuContext";
 
 export default function Menu({ name, ...props }) {
   const [currentMenu, setCurrentMenu] = useContext(MenuContext);
-  console.log(currentMenu);
+
   return (
     <>
       <Offcanvas {...props} className="menu bg-info">
@@ -69,6 +69,8 @@ export default function Menu({ name, ...props }) {
                 return <Following />;
               case 4:
                 return <Settings />;
+              default:
+                console.log("error message");
             }
           })()}
         </Offcanvas.Body>

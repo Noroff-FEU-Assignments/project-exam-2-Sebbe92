@@ -1,11 +1,10 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Button } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import ModalContext from "../context/ModalContext";
 
-export default function CenteredModal(props) {
+export default function CenteredModal() {
   const [commentModal, setCommentModal] = useContext(ModalContext);
-  console.log(commentModal);
   return (
     <Modal
       variant="info"

@@ -1,9 +1,6 @@
-import React, { useContext } from "react";
 import backupImage from "../images/placeholder.png";
-import PageContext from "../context/PageContext";
-import { Link } from "react-router-dom";
+
 export default function ProfileWidget(props) {
-  const [page, setPage] = useContext(PageContext);
   return (
     <a
       href={`/profile?name=${props.profile.name}`}

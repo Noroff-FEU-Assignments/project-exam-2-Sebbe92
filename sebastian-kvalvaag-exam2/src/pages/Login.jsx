@@ -40,7 +40,7 @@ export default function Login() {
         </Form.Group>
         <div>Form error</div>
         <div className="d-flex">
-          <a>
+          <a href="sign-up">
             You don't have an account? <br /> Sign up!
           </a>
           <Button type="submit">LOGIN</Button>

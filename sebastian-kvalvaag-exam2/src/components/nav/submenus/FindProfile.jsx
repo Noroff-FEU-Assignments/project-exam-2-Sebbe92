@@ -3,9 +3,9 @@ import Button from "react-bootstrap/Button";
 import ProfileWidget from "../../ProfileWidget";
 import useAxios from "../../../hooks/useAxios";
 import addProfileIcon from "../../../icons/add-people.svg";
+
 export default function FindProfile() {
   const [profiles, setProfiles] = useState(null);
-  const [searchInput, setSearchInput] = useState("");
   const [filteredList, setFilteredList] = useState([]);
   const http = useAxios();
   //get users
@@ -37,7 +37,8 @@ export default function FindProfile() {
       setProfiles([]);
       getAllProfiles();
     }
-  }, []);
+    return;
+  }, [setProfiles, profiles]);
 
   //regex to match names
   const filterProfiles = (searchInput) => {
@@ -79,7 +80,7 @@ export default function FindProfile() {
                 follow(profile.name);
               }}
             >
-              <img src={addProfileIcon} />
+              <img src={addProfileIcon} alt="" />
             </Button>
           </>
         ))

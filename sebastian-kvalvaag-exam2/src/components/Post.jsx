@@ -1,20 +1,18 @@
 import useAxios from "../hooks/useAxios";
-import { useEffect, useState, useContext } from "react";
-import UserContext from "../context/UserContext";
+import { useState } from "react";
+
 import ProfileWidget from "./ProfileWidget";
 import Button from "react-bootstrap/Button";
-import ModalContext from "../context/ModalContext";
+
 import CommentForm from "./CommentForm";
 import commentIcon from "../icons/comment.svg";
 
-const comment = ["id", "comment"];
 function Post(props) {
-  const [commentModal, setCommentModal] = useContext(ModalContext);
   const [showComments, setShowComments] = useState(false);
   const http = useAxios();
   const likePost = async () => {
     const response = await http.put(`posts/${props.children.id}/react/👍`);
-    console.log(response);
+    return response;
   };
   return (
     <div className="bg-info shadow-inset-sm mb-2 py-2 px-3 post me-4">
@@ -27,7 +25,7 @@ function Post(props) {
       >
         <h4>{props.children.title}</h4>
         {props.children.media ? (
-          <img src={props.children.media} className="w-100" />
+          <img src={props.children.media} className="w-100" alt="" />
         ) : (
           <></>
         )}
