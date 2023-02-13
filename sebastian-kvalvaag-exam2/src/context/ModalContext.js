@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import useLocalStorage from "../hooks/useLocalStorage";
 
 const ModalContext = React.createContext([null, () => {}]);
 

@@ -39,7 +39,7 @@ export default function EditForm(props) {
   const titleError = "lol fix asap";
   useEffect(() => {
     getPost();
-  }, []);
+  });
 
   return (
     <div>

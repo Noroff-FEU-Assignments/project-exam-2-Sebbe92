@@ -33,12 +33,8 @@ export default function FindProfile() {
     }
   };
   useEffect(() => {
-    if (!profiles) {
-      setProfiles([]);
-      getAllProfiles();
-    }
-    return;
-  }, [setProfiles, profiles]);
+    getAllProfiles();
+  });
 
   //regex to match names
   const filterProfiles = (searchInput) => {

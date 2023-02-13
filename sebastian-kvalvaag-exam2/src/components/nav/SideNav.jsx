@@ -15,6 +15,7 @@ export default function SideNav() {
   const handleShow = () => {
     setShow(true);
   };
+  console.log(currentMenuPage);
   return (
     <div className="position-fixed  end-0 center d-flex flex-column sec-nav-btns-y z-index-10">
       <Button

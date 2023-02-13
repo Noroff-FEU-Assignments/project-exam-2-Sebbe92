@@ -12,6 +12,7 @@ import EditForm from "../components/EditForm";
 export default function Profile(props) {
   const http = useAxios();
   const [user, setUser] = useContext(UserContext);
+  setUser(user);
   const [profile, setProfile] = useState(null);
   const [editModal, setEditModal] = useState(null);
   const location = useLocation();
@@ -42,7 +43,7 @@ export default function Profile(props) {
   } */
   useEffect(() => {
     getProfile();
-  }, []);
+  });
 
   return (
     <div className="d-flex flex-column justify-content-center mt-nav-h">

@@ -9,6 +9,7 @@ export default function Login() {
   const http = useAxios();
   const navigate = useNavigate();
   const [user, setUser] = useContext(UserContext);
+  console.log("welcome" + user.name);
 
   async function login(email, password) {
     try {
