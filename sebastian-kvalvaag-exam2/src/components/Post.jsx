@@ -23,7 +23,7 @@ function Post(props) {
           console.log(props.children);
         }}
       >
-        <h4>{props.children.title}</h4>
+        <h4 className="break-all">{props.children.title}</h4>
         {props.children.media ? (
           <img src={props.children.media} className="w-100" alt="" />
         ) : (

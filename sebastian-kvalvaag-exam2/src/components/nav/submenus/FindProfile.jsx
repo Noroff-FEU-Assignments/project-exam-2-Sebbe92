@@ -34,7 +34,7 @@ export default function FindProfile() {
   };
   useEffect(() => {
     getAllProfiles();
-  });
+  }, []); //eslint-disable-line
 
   //regex to match names
   const filterProfiles = (searchInput) => {
