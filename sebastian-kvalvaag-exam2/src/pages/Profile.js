@@ -43,7 +43,7 @@ export default function Profile(props) {
   } */
   useEffect(() => {
     getProfile();
-  });
+  }, []); // eslint-disable-line
 
   return (
     <div className="d-flex flex-column justify-content-center mt-nav-h">

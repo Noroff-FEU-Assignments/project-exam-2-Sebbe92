@@ -40,20 +40,18 @@ export default function Home() {
     getPosts(page + 1);
     setPage(page + 1);
   };
-
+  const observer = new IntersectionObserver(
+    (entries) => {
+      const entry = entries[0];
+      if (entry.isIntersecting) {
+        loadMorePosts();
+        observer.unobserve(entry.target);
+      }
+    },
+    { threshold: 0.1 }
+  );
   useEffect(() => {
     if (postsRef.current.children[0]) {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          const entry = entries[0];
-          if (entry.isIntersecting) {
-            loadMorePosts();
-            console.log("yes");
-            observer.unobserve(entry.target);
-          }
-        },
-        { threshold: 0.1 }
-      );
       observer.observe(Array.from(postsRef.current.children).at(-1));
     }
 
