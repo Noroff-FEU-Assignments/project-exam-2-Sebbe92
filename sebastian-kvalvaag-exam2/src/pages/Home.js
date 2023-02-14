@@ -1,5 +1,5 @@
 import useAxios from "../hooks/useAxios";
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useEffect, useState, useRef } from "react";
 import Post from "../components/Post";
 import CenteredModal from "../components/CenteredModal";
 import ModalContext from "../context/ModalContext";
@@ -18,30 +18,28 @@ export default function Home() {
   const handleCommentModalClose = () => {
     setCommentModal({ show: false, id: null });
   }; */
-  const getPosts = useCallback(
-    async (page) => {
-      try {
-        const response = await http.get(
-          `/posts?limit=${postLimit}&offset=${
-            postLimit * page
-          }&_author=true&_comments=true`
-        );
-        if (posts) {
-          const temp = posts.concat(response.data);
-          setPosts(temp);
-        } else {
-          setPosts(response.data);
-        }
-      } catch (error) {
-        console.log(error);
+  const getPosts = async (page) => {
+    try {
+      const response = await http.get(
+        `/posts?limit=${postLimit}&offset=${
+          postLimit * page
+        }&_author=true&_comments=true`
+      );
+      if (posts) {
+        const temp = posts.concat(response.data);
+        setPosts(temp);
+      } else {
+        setPosts(response.data);
       }
-    },
-    [http, posts]
-  );
-  const loadMorePosts = useCallback(() => {
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const loadMorePosts = () => {
     getPosts(page + 1);
     setPage(page + 1);
-  }, [getPosts, page]);
+  };
 
   useEffect(() => {
     if (postsRef.current.children[0]) {

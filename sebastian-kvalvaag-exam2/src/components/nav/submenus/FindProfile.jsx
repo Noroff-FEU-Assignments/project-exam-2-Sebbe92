@@ -33,6 +33,7 @@ export default function FindProfile() {
     }
   };
   useEffect(() => {
+    if (profiles) return;
     getAllProfiles();
   }, []); //eslint-disable-line
 
