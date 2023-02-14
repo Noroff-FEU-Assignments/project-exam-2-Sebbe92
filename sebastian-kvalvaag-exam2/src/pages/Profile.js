@@ -42,6 +42,7 @@ export default function Profile(props) {
     }
   } */
   useEffect(() => {
+    if (profile) return;
     getProfile();
   }, []); // eslint-disable-line
 
