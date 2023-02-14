@@ -8,8 +8,7 @@ import { useNavigate } from "react-router";
 export default function Login() {
   const http = useAxios();
   const navigate = useNavigate();
-  const [user, setUser] = useContext(UserContext);
-  console.log("welcome" + user.name);
+  const setUser = useContext(UserContext);
 
   async function login(email, password) {
     try {
@@ -17,7 +16,7 @@ export default function Login() {
         email: email,
         password: password,
       });
-      setUser(response.data);
+      setUser[1](response.data);
       navigate("/");
     } catch (error) {
       console.log(error);
