@@ -38,8 +38,10 @@ export default function EditForm(props) {
   };
   const titleError = "lol fix asap";
   useEffect(() => {
-    getPost();
-  });
+    if (!post) {
+      getPost();
+    }
+  }, []); //eslint-disable-line
 
   return (
     <div>

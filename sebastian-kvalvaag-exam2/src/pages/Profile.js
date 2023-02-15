@@ -11,20 +11,38 @@ import EditForm from "../components/EditForm";
 
 export default function Profile(props) {
   const http = useAxios();
-  const [user, setUser] = useContext(UserContext);
-  setUser(user);
+  const user = useContext(UserContext);
   const [profile, setProfile] = useState(null);
   const [editModal, setEditModal] = useState(null);
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const name = params.get("name");
+
   const getProfile = async () => {
     const response = await http.get(
       `profiles/${name}?_followers=true&_following=true&_posts=true`
     );
-    setProfile(response.data);
+    setProfile(await response.data);
+    console.log(profile);
   };
-
+  const follow = async (name) => {
+    try {
+      const response = await http.put(`profiles/${name}/follow`);
+      getProfile();
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const unFollow = async (name) => {
+    try {
+      const response = await http.put(`profiles/${name}/unfollow`);
+      getProfile();
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  };
   /* async function getProfilePosts(page) {
     try {
       const response = await http.get(
@@ -55,17 +73,37 @@ export default function Profile(props) {
             avatar={profile.avatar}
           />
           <h1 className="text-center">{profile.name}</h1>
-          {profile.followers.some((follower) => follower.name === user.name) ? (
-            <Button>UnFollow</Button>
+          {profile.name === user[0].name ? (
+            <></>
           ) : (
-            <Button>Follow</Button>
+            <>
+              {profile.followers.some(
+                (follower) => follower.name === user[0].name
+              ) ? (
+                <Button
+                  onClick={() => {
+                    unFollow(profile.name);
+                  }}
+                >
+                  UnFollow
+                </Button>
+              ) : (
+                <Button
+                  onClick={() => {
+                    follow(profile.name);
+                  }}
+                >
+                  Follow
+                </Button>
+              )}
+            </>
           )}
 
           <section>
             <h2>Following</h2>
             <ul className="vertical-scroll-container bg-info py-3 shadow-inset-sm">
-              {profile.following.map((profile) => (
-                <li className="mx-3">
+              {profile.following.map((profile, i) => (
+                <li className="mx-3" key={`${profile.id}${i}`}>
                   <ProfileWidget
                     profile={{ name: profile.name, avatar: profile.avatar }}
                   />
@@ -123,7 +161,7 @@ export default function Profile(props) {
           >
             <Modal.Header closeButton>
               <Modal.Title id="contained-modal-title-vcenter">
-                Modal heading
+                Edit Post
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>

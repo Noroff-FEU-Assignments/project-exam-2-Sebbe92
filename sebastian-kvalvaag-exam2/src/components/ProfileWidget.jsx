@@ -4,7 +4,7 @@ export default function ProfileWidget(props) {
   return (
     <a
       href={`/profile?name=${props.profile.name}`}
-      className="d-flex align-items-center gap-3 "
+      className="d-flex align-items-center gap-3 profile-widget"
     >
       <div className="profile_img bg-primary">
         <img
@@ -12,7 +12,7 @@ export default function ProfileWidget(props) {
           alt="avatar"
         />
       </div>
-      <h3>{props.profile.name}</h3>
+      <h3 className="mw-100px">{props.profile.name}</h3>
     </a>
   );
 }

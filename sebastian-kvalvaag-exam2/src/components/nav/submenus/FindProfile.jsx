@@ -61,29 +61,37 @@ export default function FindProfile() {
   };
   return (
     <>
-      <h3>Find People</h3>
-      <input
-        type="text"
-        onChange={(e) => {
-          filterProfiles(e.target.value.toLowerCase());
-        }}
-      />
-      {filteredList.length > 0 ? (
-        filteredList.map((profile, i) => (
-          <>
-            <ProfileWidget key={i} profile={profile} />
-            <Button
-              onClick={() => {
-                follow(profile.name);
-              }}
+      <div>
+        <h3>Find People</h3>
+        <input
+          type="text"
+          onChange={(e) => {
+            filterProfiles(e.target.value.toLowerCase());
+          }}
+        />
+      </div>
+      <div>
+        {filteredList.length > 0 ? (
+          filteredList.map((profile, i) => (
+            <div
+              key={i}
+              className="d-flex justify-content-between align-items-center my-2"
             >
-              <img src={addProfileIcon} alt="" />
-            </Button>
-          </>
-        ))
-      ) : (
-        <></>
-      )}
+              <ProfileWidget profile={profile} />
+              <Button
+                variant="transparent"
+                onClick={() => {
+                  follow(profile.name);
+                }}
+              >
+                <img src={addProfileIcon} alt="" />
+              </Button>
+            </div>
+          ))
+        ) : (
+          <></>
+        )}
+      </div>
     </>
   );
 }

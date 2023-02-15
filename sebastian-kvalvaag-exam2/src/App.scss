@@ -68,6 +68,12 @@ main {
   padding: 5px 10px;
   border-radius: 50vw;
 }
+.profile-widget {
+  min-width: fit-content;
+}
+.mw-100px {
+  max-width: 100px;
+}
 .welcome-card {
   background-color: $info;
   border-radius: $border-radius-xl;
