@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import useAxios from "../../../hooks/useAxios";
@@ -9,19 +9,54 @@ export default function PostForm() {
   const [tags, setTags] = useState(null);
   const [media, setMedia] = useState(null);
   const [body, setBody] = useState(null);
+  const [titleError, setTitleError] = useState();
+  const [tagsError, setTagsError] = useState();
+  const [mediaError, setMediaError] = useState();
+  const [bodyError, setBodyError] = useState();
+
+  const formRef = useRef();
   const postObject = { title, tags, media, body };
   const post = async () => {
     try {
-      const response = await http.post("posts", postObject);
-      console.log(response);
+      /* const response = await http.post("posts", postObject);
+      console.log(response); */
     } catch (error) {
-      console.log(error);
+      alert(error.response.data.errors[0]);
     }
   };
+  const testPost = (post) => {
+    if (post.title.length < 3) {
+      setTitleError("Title must be at least 3 characters long");
+      return false;
+    } else {
+      setTitleError("");
+    }
+    if (post.tags) {
+      if (post.tags < 5) {
+        console.log(post.tags.length);
+        setTagsError("No more that 5 tags allowed");
+        return false;
+      } else {
+        setTagsError("");
+      }
+    }
+    if (post.media) {
+    }
+    if (!post.body) {
+      setBodyError("body is required");
+      return false;
+    }
+    return true;
+  };
+  const clearForm = (form) => {
+    form.children[0].children[1].value = "";
+    form.children[1].children[1].value = "";
+    form.children[2].children[1].value = "";
+    form.children[3].children[1].value = "";
+  };
 
-  const titleError = "";
   return (
-    <Form className="">
+    <Form className="" ref={formRef}>
       <Form.Group className="mb-3" controlId="post-form-title">
         <Form.Label>Title(required)</Form.Label>
         <Form.Control
@@ -31,7 +66,7 @@ export default function PostForm() {
             setTitle(e.target.value);
           }}
         />
-        <Form.Text className="text-muted">{titleError}</Form.Text>
+        <Form.Text className="">{titleError ? titleError : ""}</Form.Text>
       </Form.Group>
       <Form.Group className="mb-3" controlId="post-form-tags">
         <Form.Label>Tags</Form.Label>
@@ -39,10 +74,10 @@ export default function PostForm() {
           type="text"
           placeholder="Funny Tech pools etc. "
           onChange={(e) => {
-            setTags(e.target.value.split(" "));
+            setTags(e.target.value.split(" " || ","));
           }}
         />
-        <Form.Text className="text-muted">{titleError}</Form.Text>
+        <Form.Text className="">{tagsError ? tagsError : ""}</Form.Text>
       </Form.Group>
       <Form.Group className="mb-3" controlId="post-form-tags">
         <Form.Label>Media</Form.Label>
@@ -53,7 +88,7 @@ export default function PostForm() {
             setMedia(e.target.value);
           }}
         />
-        <Form.Text className="text-muted">{titleError}</Form.Text>
+        <Form.Text className="">{mediaError ? mediaError : ""}</Form.Text>
       </Form.Group>
       <Form.Group className="mb-3" controlId="post-form-tags">
         <Form.Label>Post body(required)</Form.Label>
@@ -65,17 +100,27 @@ export default function PostForm() {
             setBody(e.target.value);
           }}
         />
-        <Form.Text className="text-muted">{titleError}</Form.Text>
+        <Form.Text className="">{bodyError ? bodyError : ""}</Form.Text>
       </Form.Group>
       <Button
         variant="success"
         onClick={() => {
-          post();
+          if (testPost(postObject)) {
+            post();
+            clearForm(formRef.current);
+          }
         }}
       >
         Post
       </Button>
-      <Button variant="danger">Clear</Button>
+      <Button
+        variant="danger"
+        onClick={() => {
+          clearForm(formRef.current);
+        }}
+      >
+        Clear
+      </Button>
     </Form>
   );
 }

@@ -12,11 +12,13 @@ import Profile from "./pages/Profile";
 import PageContext from "./context/PageContext";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import SignUp from "./pages/SignUp";
+import ProfilesContext from "./context/ProfilesContext";
 
 function App() {
   const [menuPage, setMenuPage] = useState(1);
   const [user, setUser] = useLocalStorage("user", "");
   const [page, setPage] = useState({ page: "home" });
+  const [profiles, setProfiles] = useState(null);
 
   const loggedIn = createBrowserRouter([
     {
@@ -49,9 +51,11 @@ function App() {
         <UserContext.Provider value={[user, setUser]}>
           {user ? (
             <main className="position-relative ">
-              <SideNav />
-              <TopNav user={user}></TopNav>
-              <RouterProvider router={loggedIn} />
+              <ProfilesContext.Provider value={[profiles, setProfiles]}>
+                <SideNav />
+                <TopNav user={user}></TopNav>
+                <RouterProvider router={loggedIn} />
+              </ProfilesContext.Provider>
             </main>
           ) : (
             <>

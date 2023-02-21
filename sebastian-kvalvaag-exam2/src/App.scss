@@ -6,6 +6,8 @@ $body-color: #fff;
 $nav-height: 86px;
 $border-radius: 0.2rem;
 $modal-content-bg: $info;
+$form-text-color: #f33a3a;
+
 @import "../node_modules/bootstrap/scss/bootstrap";
 
 .break-all {
@@ -19,7 +21,7 @@ ul {
   list-style: none;
 }
 .fs-7 {
-  font-size: 0.9em;
+  font-size: 0.7em;
 }
 main {
   min-height: 100vh;
@@ -45,21 +47,38 @@ main {
 .avatar {
   max-width: 100px;
 }
+img {
+  max-height: 80vh;
+}
 .banner {
   height: 300px;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 50% 50%;
 }
+.hover-border {
+  h3 {
+    padding: 2px 5px;
+    transition: all 200ms ease-in-out;
+    border: 1px solid rgba(255, 255, 255, 0);
+    border-radius: 2px;
+  }
+  &:hover {
+    h3 {
+      border-color: #fff;
+    }
+  }
+}
 .side-nav_button {
   width: 45px;
   height: 40px;
-  border-radius: 5px 0 0 5px;
+  border-radius: 50%;
   border: solid 1px white;
-  border-right: none;
   display: flex;
   align-items: center;
+  justify-content: center;
   opacity: 0.8;
+  margin-right: 15px;
 }
 .tag {
   width: fit-content;
@@ -72,7 +91,7 @@ main {
   min-width: fit-content;
 }
 .mw-100px {
-  max-width: 100px;
+  max-width: 500px;
 }
 .welcome-card {
   background-color: $info;
@@ -83,16 +102,28 @@ main {
   max-width: 600px;
   background-image: url("./images/pexels-btgl-bg-img-250kb.jpg");
 }
+.posts-container {
+  flex-wrap: wrap;
+}
 .post {
   /*   transform: translateX(-60px); */
   transition: all 500ms ease-out;
-  max-width: 900px;
+  width: 500px;
+  max-width: 90%;
   height: fit-content;
+  border-radius: 10px;
+  border: 2px solid white;
+  img {
+    object-fit: contain;
+  }
 }
 .post.show {
   transform: translateX(0);
 }
-
+.comments-container {
+  max-height: 300px;
+  overflow-y: scroll;
+}
 .user-widget {
   position: relative;
   border-radius: $border-radius-xl;
@@ -151,8 +182,13 @@ main {
 
 .vertical-scroll-container {
   display: flex;
-
   overflow-x: scroll;
+  max-width: 100vw;
+  @media (min-width: 800px) {
+    flex-direction: column;
+    overflow-x: hidden;
+    align-items: start;
+  }
 }
 .vh-100 {
   height: 100vh;

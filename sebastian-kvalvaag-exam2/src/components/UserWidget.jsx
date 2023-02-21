@@ -15,6 +15,7 @@ export default function UserWidget() {
 
   function logout() {
     setUser(null);
+    window.location.href = "/";
   }
   console.log(user);
   return (
@@ -40,7 +41,11 @@ export default function UserWidget() {
         </div>
       </div>
       <div className="user-image bg-primary">
-        <img src={user.avatar ? user.avatar : defaultAvatar} alt="avatar" />
+        <img
+          src={user.avatar ? user.avatar : defaultAvatar}
+          alt="avatar"
+          className="h-100"
+        />
       </div>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>

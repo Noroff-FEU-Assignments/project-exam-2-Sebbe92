@@ -98,79 +98,80 @@ export default function Profile(props) {
               )}
             </>
           )}
-
-          <section>
-            <h2>Following</h2>
-            <ul className="vertical-scroll-container bg-info py-3 shadow-inset-sm">
-              {profile.following.map((profile, i) => (
-                <li className="mx-3" key={`${profile.id}${i}`}>
-                  <ProfileWidget
-                    profile={{ name: profile.name, avatar: profile.avatar }}
-                  />
-                </li>
-              ))}
-            </ul>
-          </section>
-          <section>
-            <h2>Followers</h2>
-            <ul className="vertical-scroll-container bg-info py-3 shadow-inset-sm">
-              {profile.followers.map((profile) => (
-                <li className="mx-3" key={profile.name}>
-                  <ProfileWidget
-                    profile={{ name: profile.name, avatar: profile.avatar }}
-                  />
-                </li>
-              ))}
-            </ul>
-          </section>
-          <section>
-            {profile.name === user.name ? (
-              <ul>
-                {profile.posts.map((post, i) => (
-                  <li key={i}>
-                    <h4>{post.title}</h4>{" "}
-                    <Button
-                      onClick={() => {
-                        setEditModal(post.id);
-                      }}
-                    >
-                      edit
-                    </Button>
+          <div className="container-fluid row">
+            <section className="col-12 col-lg-3">
+              <h2>Following</h2>
+              <ul className="vertical-scroll-container bg-info py-3 shadow-inset-sm">
+                {profile.following.map((profile, i) => (
+                  <li className="mx-3" key={`${profile.id}${i}`}>
+                    <ProfileWidget
+                      profile={{ name: profile.name, avatar: profile.avatar }}
+                    />
                   </li>
                 ))}
               </ul>
-            ) : (
-              <ul>
-                <h2>Posts</h2>
-                {profile.posts.map((post, i) => (
-                  <li key={i}>
-                    <h4>{post.title}</h4>
+            </section>
+            <section className="col-12 col-lg-3">
+              <h2>Followers</h2>
+              <ul className="vertical-scroll-container bg-info py-3 shadow-inset-sm">
+                {profile.followers.map((profile) => (
+                  <li className="mx-3" key={profile.name}>
+                    <ProfileWidget
+                      profile={{ name: profile.name, avatar: profile.avatar }}
+                    />
                   </li>
                 ))}
               </ul>
-            )}
-          </section>
-          <Modal
-            show={editModal}
-            onHide={() => {
-              setEditModal(null);
-            }}
-            size="lg"
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
-          >
-            <Modal.Header closeButton>
-              <Modal.Title id="contained-modal-title-vcenter">
-                Edit Post
-              </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <EditForm id={editModal} />
-            </Modal.Body>
-            <Modal.Footer>
-              <Button onClick={props.onHide}>Close</Button>
-            </Modal.Footer>
-          </Modal>
+            </section>
+            <section className="col-12 col-lg-4">
+              {profile.name === user[0].name ? (
+                <ul>
+                  {profile.posts.map((post, i) => (
+                    <li key={i}>
+                      <h4>{post.title}</h4>{" "}
+                      <Button
+                        onClick={() => {
+                          setEditModal(post.id);
+                        }}
+                      >
+                        edit
+                      </Button>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <ul>
+                  <h2>Posts</h2>
+                  {profile.posts.map((post, i) => (
+                    <li key={i}>
+                      <h4>{post.title}</h4>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </section>
+            <Modal
+              show={editModal}
+              onHide={() => {
+                setEditModal(null);
+              }}
+              size="lg"
+              aria-labelledby="contained-modal-title-vcenter"
+              centered
+            >
+              <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title-vcenter">
+                  Edit Post
+                </Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <EditForm id={editModal} />
+              </Modal.Body>
+              <Modal.Footer>
+                <Button onClick={props.onHide}>Close</Button>
+              </Modal.Footer>
+            </Modal>
+          </div>
         </div>
       ) : (
         <>Loading...</>

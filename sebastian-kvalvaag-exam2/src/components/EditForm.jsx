@@ -36,6 +36,16 @@ export default function EditForm(props) {
       console.log(error);
     }
   };
+  const deletePost = async (id) => {
+    try {
+      const response = await http.delete(`/posts/${id}`);
+      alert("post deleted");
+      console.log(response);
+    } catch (error) {
+      alert(error);
+      console.log(error);
+    }
+  };
   const titleError = "lol fix asap";
   useEffect(() => {
     if (!post) {
@@ -104,7 +114,14 @@ export default function EditForm(props) {
           >
             Post
           </Button>
-          <Button variant="danger">Clear</Button>
+          <Button
+            variant="danger"
+            onClick={() => {
+              deletePost(post.id);
+            }}
+          >
+            Delete
+          </Button>
         </Form>
       ) : (
         <>Loading</>

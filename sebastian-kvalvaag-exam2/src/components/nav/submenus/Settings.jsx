@@ -19,19 +19,22 @@ export default function Settings() {
     if (!avatar) {
       setAvatar(user.avatar);
     }
+    console.log(user.banner, user.avatar);
     try {
       const response = await http.put(`profiles/${user.name}/media`, {
         banner,
         avatar,
       });
-      console.log(response);
+      const tempUser = user;
+      tempUser.avatar = avatar;
+      tempUser.banner = banner;
+      setUser(tempUser);
+      return response;
     } catch (error) {
+      alert("error");
       console.log(error);
+      return;
     }
-    const tempUser = user;
-    tempUser.avatar = avatar;
-    tempUser.banner = banner;
-    setUser(tempUser);
   };
   return (
     <div>

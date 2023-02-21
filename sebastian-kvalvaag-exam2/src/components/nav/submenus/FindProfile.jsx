@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import ProfileWidget from "../../ProfileWidget";
 import useAxios from "../../../hooks/useAxios";
 import addProfileIcon from "../../../icons/add-people.svg";
+import ProfilesContext from "../../../context/ProfilesContext";
 
 export default function FindProfile() {
-  const [profiles, setProfiles] = useState(null);
+  const [profiles, setProfiles] = useContext(ProfilesContext);
   const [filteredList, setFilteredList] = useState([]);
   const http = useAxios();
-  //get users
+  //get profiles
   let offset = 0;
   let tempList = [];
   const getAllProfiles = async () => {
@@ -33,7 +34,10 @@ export default function FindProfile() {
     }
   };
   useEffect(() => {
-    if (profiles) return;
+    console.log(profiles);
+    if (profiles) {
+      return;
+    }
     getAllProfiles();
   }, []); //eslint-disable-line
 
@@ -61,10 +65,11 @@ export default function FindProfile() {
   };
   return (
     <>
-      <div>
-        <h3>Find People</h3>
+      <div className="d-flex flex-column align-items-center">
+        <h3 className="text-center">Find People</h3>
         <input
           type="text"
+          className="mx-auto"
           onChange={(e) => {
             filterProfiles(e.target.value.toLowerCase());
           }}

@@ -58,6 +58,7 @@ export default function SideNav() {
       >
         <img src={settingsIcon} alt="settings icon" className="icon" />
       </Button>
+
       <Menu show={show} onHide={handleClose} placement="end" />
     </div>
   );

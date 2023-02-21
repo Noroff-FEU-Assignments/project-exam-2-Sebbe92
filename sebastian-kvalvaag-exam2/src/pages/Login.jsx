@@ -19,7 +19,7 @@ export default function Login() {
       setUser[1](response.data);
       navigate("/");
     } catch (error) {
-      console.log(error);
+      alert(error.response.data.errors[0].message);
     }
   }
   return (

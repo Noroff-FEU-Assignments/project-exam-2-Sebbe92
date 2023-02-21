@@ -16,7 +16,7 @@ export default function Menu({ name, ...props }) {
 
   return (
     <>
-      <Offcanvas {...props} className="menu bg-info">
+      <Offcanvas {...props} className="menu bg-info" scroll={true}>
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Post</Offcanvas.Title>
         </Offcanvas.Header>

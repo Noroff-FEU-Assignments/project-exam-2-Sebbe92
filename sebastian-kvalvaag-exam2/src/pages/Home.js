@@ -3,14 +3,18 @@ import { useEffect, useState, useRef } from "react";
 import Post from "../components/Post";
 import CenteredModal from "../components/CenteredModal";
 import ModalContext from "../context/ModalContext";
+import { Button } from "react-bootstrap";
 const postLimit = 10;
 
 export default function Home() {
   const http = useAxios();
   const [posts, setPosts] = useState(null);
   const [page, setPage] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [commentModal, setCommentModal] = useState({ show: false, id: null });
   const postsRef = useRef(null);
+  const tooTopButtonRef = useRef(null);
 
   /*  const handleCommentModalShow = (id) => {
     setCommentModal({ show: true, id: id });
@@ -20,6 +24,8 @@ export default function Home() {
   }; */
   const getPosts = async (page) => {
     try {
+      setError(null);
+      setLoading(true);
       const response = await http.get(
         `/posts?limit=${postLimit}&offset=${
           postLimit * page
@@ -32,7 +38,10 @@ export default function Home() {
         setPosts(response.data);
       }
     } catch (error) {
+      setError(error.response.data.status);
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -50,7 +59,16 @@ export default function Home() {
     },
     { threshold: 0.1 }
   );
+  const scrollDetector = () => {
+    if (window.pageYOffset > 200) {
+      console.log("to top");
+    } else {
+      console.log("hidden");
+    }
+  };
   useEffect(() => {
+    window.removeEventListener("scroll", scrollDetector);
+    window.addEventListener("scroll", scrollDetector);
     if (postsRef.current.children[0]) {
       observer.observe(Array.from(postsRef.current.children).at(-1));
     }
@@ -63,17 +81,18 @@ export default function Home() {
     <ModalContext.Provider value={[commentModal, setCommentModal]}>
       <div className="d-flex flex-column justify-content-center mt-nav-h">
         <CenteredModal commentModal={commentModal} />
-        <div className="mt-2">
-          <div ref={postsRef}>
+        <div className="mt-2  position-relative">
+          {error ? <>Looks like there was an error : {error}</> : <></>}
+          <div ref={postsRef} className="d-flex flex-column align-items-center">
             {posts ? (
               posts.map((post, i) => <Post key={`${post.id}${i}`}>{post}</Post>)
             ) : (
-              <>loading...</>
+              <></>
             )}
           </div>
+          {loading ? <>loading...</> : <></>}
         </div>
       </div>
-      <></>
     </ModalContext.Provider>
   );
 }
