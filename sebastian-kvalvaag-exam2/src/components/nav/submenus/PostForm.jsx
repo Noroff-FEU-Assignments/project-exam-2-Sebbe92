@@ -18,10 +18,10 @@ export default function PostForm() {
   const postObject = { title, tags, media, body };
   const post = async () => {
     try {
-      /* const response = await http.post("posts", postObject);
-      console.log(response); */
+      const response = await http.post("posts", postObject);
+      console.log(response);
     } catch (error) {
-      alert(error.response.data.errors[0]);
+      setMediaError(error.response.data.errors[0]);
     }
   };
   const testPost = (post) => {

@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import Post from "../components/Post";
 import CenteredModal from "../components/CenteredModal";
 import ModalContext from "../context/ModalContext";
-import { Button } from "react-bootstrap";
+
 const postLimit = 10;
 
 export default function Home() {
@@ -14,7 +14,7 @@ export default function Home() {
   const [error, setError] = useState(null);
   const [commentModal, setCommentModal] = useState({ show: false, id: null });
   const postsRef = useRef(null);
-  const tooTopButtonRef = useRef(null);
+  /* const tooTopButtonRef = useRef(null); */
 
   /*  const handleCommentModalShow = (id) => {
     setCommentModal({ show: true, id: id });
