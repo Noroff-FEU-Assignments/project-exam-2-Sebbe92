@@ -25,18 +25,11 @@ function App() {
     {
       path: "/",
       element: <Home />,
+      errorElement: <Error />,
     },
     {
       path: "/profile/",
       element: <Profile />,
-    },
-    {
-      path: "/login",
-      errorElement: <Error />,
-    },
-    {
-      path: "/signup",
-      errorElement: <Error />,
     },
   ]);
 
@@ -44,6 +37,7 @@ function App() {
     {
       path: "/",
       element: <Welcome />,
+      errorElement: <Error />,
     },
     {
       path: "/login",
