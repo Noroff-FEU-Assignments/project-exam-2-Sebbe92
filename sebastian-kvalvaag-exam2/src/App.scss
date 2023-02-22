@@ -93,14 +93,19 @@ img {
 .mw-100px {
   max-width: 500px;
 }
+.hover-underline {
+  &:hover {
+    text-decoration: underline !important;
+  }
+}
 .welcome-card {
-  background-color: $info;
   border-radius: $border-radius-xl;
   border: 2px solid white;
 }
 .welcome-background {
   max-width: 600px;
-  background-image: url("./images/pexels-btgl-bg-img-250kb.jpg");
+  background-image: url("./images/pexels-piccinng-3075938-background.jpg");
+  background-size: cover;
 }
 .posts-container {
   flex-wrap: wrap;

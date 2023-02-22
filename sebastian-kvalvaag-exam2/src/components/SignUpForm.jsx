@@ -29,7 +29,7 @@ export default function SignUpForm() {
       console.log(newUser);
       const response = await http.post("auth/register", newUser);
       console.log(response);
-      redirect("/login");
+      /*  redirect("/login"); */
       return response;
     } catch (error) {
       console.log(error);
@@ -111,7 +111,7 @@ export default function SignUpForm() {
               }}
             />
             <InputGroup.Text id="email" className="bg-primary">
-              @stud.noroff.com
+              @stud.noroff.no
             </InputGroup.Text>
           </InputGroup>
           <Form.Text>{emailError}</Form.Text>

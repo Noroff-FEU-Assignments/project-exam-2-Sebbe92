@@ -11,7 +11,7 @@ import Following from "./submenus/Following";
 import Settings from "./submenus/Settings";
 import MenuContext from "../../context/MenuContext";
 
-export default function Menu({ name, ...props }) {
+export default function Menu({ name, nav, ...props }) {
   const [currentMenu, setCurrentMenu] = useContext(MenuContext);
 
   return (

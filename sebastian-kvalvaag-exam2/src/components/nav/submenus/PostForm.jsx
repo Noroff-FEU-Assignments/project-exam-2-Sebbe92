@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import useAxios from "../../../hooks/useAxios";
 
-export default function PostForm() {
+export default function PostForm(props) {
   const http = useAxios();
   const [title, setTitle] = useState(null);
   const [tags, setTags] = useState(null);
@@ -19,13 +19,15 @@ export default function PostForm() {
   const post = async () => {
     try {
       const response = await http.post("posts", postObject);
-      console.log(response);
+      if (response.data) {
+        window.location.reload(false);
+      }
     } catch (error) {
       setMediaError(error.response.data.errors[0]);
     }
   };
   const testPost = (post) => {
-    if (post.title.length < 3) {
+    if (!post.title || post.title.length < 3) {
       setTitleError("Title must be at least 3 characters long");
       return false;
     } else {
@@ -107,7 +109,6 @@ export default function PostForm() {
         onClick={() => {
           if (testPost(postObject)) {
             post();
-            clearForm(formRef.current);
           }
         }}
       >

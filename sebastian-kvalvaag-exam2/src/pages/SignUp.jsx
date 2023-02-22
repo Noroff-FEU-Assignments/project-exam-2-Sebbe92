@@ -3,7 +3,7 @@ import SignUpForm from "../components/SignUpForm";
 
 export default function SingUp() {
   return (
-    <div className="welcome-card">
+    <div className="welcome-card bg-info">
       <SignUpForm />
     </div>
   );

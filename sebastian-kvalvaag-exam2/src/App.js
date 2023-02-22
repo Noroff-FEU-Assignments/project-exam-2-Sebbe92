@@ -13,6 +13,7 @@ import PageContext from "./context/PageContext";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import SignUp from "./pages/SignUp";
 import ProfilesContext from "./context/ProfilesContext";
+import Error from "./components/Error";
 
 function App() {
   const [menuPage, setMenuPage] = useState(1);
@@ -28,6 +29,14 @@ function App() {
     {
       path: "/profile/",
       element: <Profile />,
+    },
+    {
+      path: "/login",
+      errorElement: <Error />,
+    },
+    {
+      path: "/signup",
+      errorElement: <Error />,
     },
   ]);
 
@@ -60,6 +69,7 @@ function App() {
           ) : (
             <>
               <div className="vh-100 mx-auto d-flex flex-column align-items-center justify-content-center welcome-background animate-left">
+                <h1>Social Hub</h1>
                 <RouterProvider router={loggedOut} />
               </div>
             </>
