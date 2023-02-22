@@ -12,6 +12,7 @@ export default function CommentForm(props) {
         body: comment,
       });
       console.log(response);
+      window.location.reload(false);
     } catch (error) {
       console.log(error);
     }
