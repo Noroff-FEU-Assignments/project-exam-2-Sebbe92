@@ -19,10 +19,11 @@ export default function PostForm(props) {
   const post = async () => {
     try {
       const response = await http.post("posts", postObject);
-      if (response.data) {
-        window.location.reload(false);
-      }
+
+      window.location.reload(false);
+      return response;
     } catch (error) {
+      console.log(error);
       setMediaError(error.response.data.errors[0]);
     }
   };
@@ -105,7 +106,7 @@ export default function PostForm(props) {
         <Form.Text className="">{bodyError ? bodyError : ""}</Form.Text>
       </Form.Group>
       <Button
-        variant="success"
+        variant="secondary"
         onClick={() => {
           if (testPost(postObject)) {
             post();
@@ -115,7 +116,8 @@ export default function PostForm(props) {
         Post
       </Button>
       <Button
-        variant="danger"
+        className="float-end"
+        variant="warning"
         onClick={() => {
           clearForm(formRef.current);
         }}

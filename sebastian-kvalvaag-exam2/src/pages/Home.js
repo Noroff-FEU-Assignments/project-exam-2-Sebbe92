@@ -29,7 +29,7 @@ export default function Home() {
       const response = await http.get(
         `/posts?limit=${postLimit}&offset=${
           postLimit * page
-        }&_author=true&_comments=true`
+        }&_author=true&_comments=true&&_reactions=true`
       );
       if (posts) {
         const temp = posts.concat(response.data);
@@ -49,6 +49,15 @@ export default function Home() {
     getPosts(page + 1);
     setPage(page + 1);
   };
+  /*  const filterByTag = async (tag) => {
+    const response = await http.get(
+      `/posts?limit=${postLimit}&offset=${
+        postLimit * page
+      }&_author=true&_comments=true&_tag=${tag}`
+    );
+    setPosts(response.data);
+    return response;
+  }; */
   const observer = new IntersectionObserver(
     (entries) => {
       const entry = entries[0];

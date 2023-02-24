@@ -3,17 +3,22 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import UserContext from "../context/UserContext";
 import useAxios from "../hooks/useAxios";
-import { useNavigate } from "react-router";
+
 import InputGroup from "react-bootstrap/InputGroup";
 
 export default function Login() {
   const http = useAxios();
-  const navigate = useNavigate();
+
   const setUser = useContext(UserContext);
   const [inputsIsValid, setInputsIsNotValid] = useState(true);
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [loginError, setLoginError] = useState(null);
+
+  const redirect = (path) => {
+    window.location.href = path;
+  };
+
   const validateInput = () => {
     if (email && password.length > 2) {
       setInputsIsNotValid(false);
@@ -30,7 +35,7 @@ export default function Login() {
         password: password,
       });
       setUser[1](response.data);
-      navigate("/");
+      redirect("/");
     } catch (error) {
       setLoginError(error.response.data.errors[0].message);
     }

@@ -3,6 +3,8 @@ import { useRef, useState } from "react";
 
 import ProfileWidget from "./ProfileWidget";
 import Button from "react-bootstrap/Button";
+import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
 
 import CommentForm from "./CommentForm";
 import commentIcon from "../icons/comment.svg";
@@ -11,6 +13,9 @@ function Post(props) {
   const http = useAxios();
 
   const [showComments, setShowComments] = useState(false);
+  /* const [like, setLike] = useState(false);
+  const [love, setLove] = useState(false);
+  const [hate, setHate] = useState(false); */
 
   const postRef = useRef();
 
@@ -23,9 +28,42 @@ function Post(props) {
   })}  ${date.toLocaleTimeString()}`;
   //
 
-  const likePost = async () => {
-    const response = await http.put(`posts/${props.children.id}/react/👍`);
-    return response;
+  /* const reactionCount = () => {
+    console.log(props);
+    if (props.children.reactions) {
+      const reactions = props.children.reactions;
+      reactions.map((reaction) => {
+        switch (reaction.symbol) {
+          case "👍":
+            console.log("👍");
+            setLike(true);
+            break;
+          case "😍":
+            console.log("😍");
+            setLove(true);
+            break;
+          case "🤬":
+            console.log("🤬");
+            setHate(true);
+            break;
+          default:
+            console.log(reaction);
+            break;
+        }
+      });
+    }
+  }; */
+
+  const likePost = async (emoji) => {
+    try {
+      const response = await http.put(
+        `posts/${props.children.id}/react/${emoji}`
+      );
+      return response;
+    } catch (error) {
+      alert("error");
+      console.log(error);
+    }
   };
   return (
     <div
@@ -34,20 +72,16 @@ function Post(props) {
     >
       <ProfileWidget profile={props.children.author} />
       <dt className="fs-7 mb-4">{formattedDate}</dt>
-      <div
-        onClick={() => {
-          console.log(props.children);
-        }}
-      >
+      <a href={`/posts?id=${props.children.id}`}>
         <h4 className="break-all">{props.children.title}</h4>
         {props.children.media ? (
           <img src={props.children.media} className="w-100" alt="" />
         ) : (
           <></>
         )}
-      </div>
+      </a>
       <p className="break-all">{props.children.body}</p>
-      <ul className="d-flex flex-wrap">
+      <ul className="d-flex flex-wrap justify-content-between p-0">
         {props.children.tags ? (
           props.children.tags.map((tag, i) => (
             <li className="tag" key={i}>
@@ -59,8 +93,55 @@ function Post(props) {
         )}
       </ul>
       <div className="d-flex justify-content-between">
-        <div onClick={likePost}>👍:{props.children._count.reactions}</div>
+        <DropdownButton
+          id="react-dropdown"
+          title={`React: ${props.children._count.reactions} `}
+          variant="info"
+          size="sm"
+          className="d-flex"
+          align="end"
+        >
+          <Dropdown.Item
+            onClick={() => {
+              likePost("👍");
+            }}
+          >
+            👍
+          </Dropdown.Item>
+
+          <Dropdown.Item
+            onClick={() => {
+              likePost("😍");
+            }}
+          >
+            😍
+          </Dropdown.Item>
+
+          <Dropdown.Item
+            onClick={() => {
+              likePost("🤬");
+            }}
+          >
+            🤬
+          </Dropdown.Item>
+
+          {props.children.reactions ? (
+            props.children.reactions.map((reaction) => (
+              <Dropdown.Item
+                onClick={() => {
+                  likePost(reaction.symbol);
+                }}
+              >
+                {reaction.symbol}:{reaction.count}
+              </Dropdown.Item>
+            ))
+          ) : (
+            <></>
+          )}
+        </DropdownButton>
+
         <Button
+          variant="transparent"
           onClick={() => {
             setShowComments(showComments ? false : true);
           }}

@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import SideNav from "./components/nav/SideNav";
 import Home from "./pages/Home.js";
 import Welcome from "./pages/Welcome";
+import Posts from "./pages/Posts";
 import { useState } from "react";
 import Profile from "./pages/Profile";
 import PageContext from "./context/PageContext";
@@ -30,6 +31,10 @@ function App() {
     {
       path: "/profile/",
       element: <Profile />,
+    },
+    {
+      path: "/posts/",
+      element: <Posts />,
     },
   ]);
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import useAxios from "../hooks/useAxios";
@@ -10,7 +10,7 @@ export default function EditForm(props) {
   const [media, setMedia] = useState(null);
   const [body, setBody] = useState(null);
   const [post, setPost] = useState(null);
-
+  const formRef = useRef();
   const getPost = async () => {
     const response = await http.get(`/posts/${props.id}`);
     setPost(response.data);
@@ -27,11 +27,11 @@ export default function EditForm(props) {
       media: newMedia,
       body: newBody,
     };
-    console.log(props.id);
-    console.log(updatedPost);
+
     try {
       const response = await http.put(`/posts/${props.id}`, updatedPost);
       console.log(response);
+      window.location.reload(false);
     } catch (error) {
       console.log(error);
     }
@@ -56,7 +56,7 @@ export default function EditForm(props) {
   return (
     <div>
       {post ? (
-        <Form className="">
+        <Form className="" ref={formRef}>
           <Form.Group className="mb-3" controlId="post-form-title">
             <Form.Label>Title(required)</Form.Label>
             <Form.Control

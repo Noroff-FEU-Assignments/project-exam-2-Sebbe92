@@ -8,6 +8,8 @@ $border-radius: 0.2rem;
 $modal-content-bg: $info;
 $form-text-color: #f33a3a;
 
+$dropdown-min-width: 10px;
+
 @import "../node_modules/bootstrap/scss/bootstrap";
 
 .break-all {

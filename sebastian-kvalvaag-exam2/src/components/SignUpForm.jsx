@@ -18,7 +18,6 @@ export default function SignUpForm() {
   const [formError, setFormError] = useState(null);
 
   const redirect = (path) => {
-    console.log(path);
     window.location.href = path;
   };
   const register = async () => {
@@ -26,10 +25,9 @@ export default function SignUpForm() {
     try {
       const fullEmail = email + "@stud.noroff.no";
       const newUser = { name, email: fullEmail, password };
-      console.log(newUser);
       const response = await http.post("auth/register", newUser);
-      console.log(response);
-      /*  redirect("/login"); */
+
+      redirect("/login");
       return response;
     } catch (error) {
       console.log(error);
