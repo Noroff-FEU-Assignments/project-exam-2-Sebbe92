@@ -5,16 +5,18 @@ import useAxios from "../hooks/useAxios";
 export default function CommentForm(props) {
   const http = useAxios();
   const [comment, setComment] = useState();
-
+  const [error, setError] = useState(null);
   const postComment = async () => {
     try {
       const response = await http.post(`posts/${props.id}/comment`, {
         body: comment,
       });
-      console.log(response);
+      setError("success");
       window.location.reload(false);
+      return response;
     } catch (error) {
-      console.log(error);
+      setError(error.response.data.errors[0].message);
+      console.log(error.response.data.errors[0]);
     }
   };
   return (
@@ -35,6 +37,7 @@ export default function CommentForm(props) {
         />
       </Form.Group>
       <Button type="submit">Post</Button>
+      <Form.Text>{error}</Form.Text>
     </Form>
   );
 }

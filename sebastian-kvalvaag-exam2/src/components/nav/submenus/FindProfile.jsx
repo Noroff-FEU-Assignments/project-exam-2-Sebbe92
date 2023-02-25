@@ -4,10 +4,12 @@ import ProfileWidget from "../../ProfileWidget";
 import useAxios from "../../../hooks/useAxios";
 import addProfileIcon from "../../../icons/add-people.svg";
 import ProfilesContext from "../../../context/ProfilesContext";
+import UserContext from "../../../context/UserContext";
 
 export default function FindProfile() {
+  const user = useContext(UserContext);
   const [profiles, setProfiles] = useContext(ProfilesContext);
-  const [filteredList, setFilteredList] = useState([]);
+  const [filteredList, setFilteredList] = useState(profiles ? profiles : []);
   const http = useAxios();
   //get profiles
   let offset = 0;
@@ -87,6 +89,7 @@ export default function FindProfile() {
                 variant="transparent"
                 onClick={() => {
                   follow(profile.name);
+                  console.log(user, profile);
                 }}
               >
                 <img src={addProfileIcon} alt="" />

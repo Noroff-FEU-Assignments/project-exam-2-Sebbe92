@@ -18,7 +18,25 @@ export default function Menu({ name, nav, ...props }) {
     <>
       <Offcanvas {...props} className="menu bg-info" scroll={true}>
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Post</Offcanvas.Title>
+          <Offcanvas.Title>
+            {" "}
+            {(() => {
+              switch (currentMenu) {
+                case 1:
+                  return "Post";
+                case 2:
+                  return "Find Profile";
+                case 3:
+                  return "Following";
+                case 4:
+                  return "Settings";
+                default:
+                  alert(
+                    "looks like there was an error. Try to refresh the browser"
+                  );
+              }
+            })()}
+          </Offcanvas.Title>
         </Offcanvas.Header>
         <div className="d-flex flex-column sec-nav-btns-x sec-nav-btns-y  position-absolute">
           <Button
@@ -70,7 +88,9 @@ export default function Menu({ name, nav, ...props }) {
               case 4:
                 return <Settings />;
               default:
-                console.log("error message");
+                alert(
+                  "looks like there was an error. Try to refresh the browser"
+                );
             }
           })()}
         </Offcanvas.Body>

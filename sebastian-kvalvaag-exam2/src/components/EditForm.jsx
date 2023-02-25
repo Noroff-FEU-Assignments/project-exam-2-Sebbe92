@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import useAxios from "../hooks/useAxios";
+import { Modal } from "react-bootstrap";
 
 export default function EditForm(props) {
   const http = useAxios();
@@ -10,10 +11,19 @@ export default function EditForm(props) {
   const [media, setMedia] = useState(null);
   const [body, setBody] = useState(null);
   const [post, setPost] = useState(null);
+  const [error, setError] = useState(null);
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const formRef = useRef();
   const getPost = async () => {
-    const response = await http.get(`/posts/${props.id}`);
-    setPost(response.data);
+    try {
+      const response = await http.get(`/posts/${props.id}`);
+      setPost(response.data);
+    } catch (error) {
+      setError(error.data.errors[0].message);
+    }
   };
   const updatePost = async () => {
     //update post
@@ -46,7 +56,6 @@ export default function EditForm(props) {
       console.log(error);
     }
   };
-  const titleError = "lol fix asap";
   useEffect(() => {
     if (!post) {
       getPost();
@@ -67,7 +76,6 @@ export default function EditForm(props) {
                 setTitle(e.target.value);
               }}
             />
-            <Form.Text className="text-muted">{titleError}</Form.Text>
           </Form.Group>
           <Form.Group className="mb-3" controlId="post-form-tags">
             <Form.Label>Tags</Form.Label>
@@ -79,7 +87,6 @@ export default function EditForm(props) {
                 setTags(e.target.value.split(" "));
               }}
             />
-            <Form.Text className="text-muted">{titleError}</Form.Text>
           </Form.Group>
           <Form.Group className="mb-3" controlId="post-form-tags">
             <Form.Label>Media</Form.Label>
@@ -91,7 +98,6 @@ export default function EditForm(props) {
                 setMedia(e.target.value);
               }}
             />
-            <Form.Text className="text-muted">{titleError}</Form.Text>
           </Form.Group>
           <Form.Group className="mb-3" controlId="post-form-tags">
             <Form.Label>Post body(required)</Form.Label>
@@ -104,28 +110,63 @@ export default function EditForm(props) {
                 setBody(e.target.value);
               }}
             />
-            <Form.Text className="text-muted">{titleError}</Form.Text>
           </Form.Group>
-          <Button
-            variant="success"
-            onClick={() => {
-              updatePost();
-            }}
-          >
-            Post
-          </Button>
-          <Button
-            variant="danger"
-            onClick={() => {
-              deletePost(post.id);
-            }}
-          >
-            Delete
-          </Button>
+          {error ? (
+            <Form.Text className="text-muted">{error}</Form.Text>
+          ) : (
+            <></>
+          )}
+
+          <div className="d-flex justify-content-between">
+            <Button
+              variant="success"
+              onClick={() => {
+                updatePost();
+              }}
+            >
+              Post
+            </Button>
+            <Button
+              variant="danger"
+              onClick={() => {
+                handleShow();
+              }}
+            >
+              Delete
+            </Button>
+          </div>
         </Form>
       ) : (
         <>Loading</>
       )}
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Delete Post</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Are you sure you want to Delete this post?
+          {post ? post.title : "error?"}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="danger"
+            onClick={() => {
+              deletePost(post.id);
+              handleClose();
+            }}
+          >
+            Delete
+          </Button>
+          <Button
+            variant="primary"
+            onClick={() => {
+              handleClose();
+            }}
+          >
+            Cancel
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }

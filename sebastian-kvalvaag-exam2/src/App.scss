@@ -1,7 +1,7 @@
 $primary: #052d41;
 $secondary: #024d3d;
 $info: #035157;
-$body-bg: #202020;
+$body-bg: $primary;
 $body-color: #fff;
 $nav-height: 86px;
 $border-radius: 0.2rem;
@@ -12,12 +12,19 @@ $dropdown-min-width: 10px;
 
 @import "../node_modules/bootstrap/scss/bootstrap";
 
+//Global
 .break-all {
   word-break: break-all;
 }
 
 a {
   text-decoration: none;
+  color: white;
+  h4 {
+    &:visited {
+      text-decoration: underline;
+    }
+  }
 }
 ul {
   list-style: none;
@@ -71,17 +78,6 @@ img {
     }
   }
 }
-.side-nav_button {
-  width: 45px;
-  height: 40px;
-  border-radius: 50%;
-  border: solid 1px white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0.8;
-  margin-right: 15px;
-}
 .tag {
   width: fit-content;
   background-color: white;
@@ -95,11 +91,49 @@ img {
 .mw-100px {
   max-width: 500px;
 }
+.vh-100 {
+  height: 100vh;
+}
 .hover-underline {
   &:hover {
     text-decoration: underline !important;
   }
 }
+.vertical-scroll-container {
+  display: flex;
+  overflow-x: scroll;
+  max-width: 100vw;
+  @media (min-width: 800px) {
+    flex-direction: column;
+    overflow-x: hidden;
+    align-items: start;
+  }
+}
+
+//Second nav
+.side-nav_button {
+  width: 45px;
+  height: 40px;
+  border-radius: 50%;
+  border: solid 1px white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.8;
+  margin-right: 15px;
+}
+.menu {
+  max-width: calc(100% - 50px);
+  top: $nav-height !important;
+  left: 50px !important;
+  margin-left: 0 !important;
+  @media (min-width: "450px") {
+    margin-left: 50px !important;
+    left: auto !important;
+  }
+}
+
+//landing page
 .welcome-card {
   border-radius: $border-radius-xl;
   border: 2px solid white;
@@ -109,6 +143,7 @@ img {
   background-image: url("./images/pexels-piccinng-3075938-background.jpg");
   background-size: cover;
 }
+//Home page
 .posts-container {
   flex-wrap: wrap;
 }
@@ -118,8 +153,9 @@ img {
   width: 500px;
   max-width: 90%;
   height: fit-content;
-  border-radius: 10px;
-  border: 2px solid white;
+
+  border-top: 2px solid white;
+  border-bottom: 2px solid white;
   img {
     object-fit: contain;
   }
@@ -131,6 +167,7 @@ img {
   max-height: 300px;
   overflow-y: scroll;
 }
+//Profile
 .user-widget {
   position: relative;
   border-radius: $border-radius-xl;
@@ -176,28 +213,3 @@ img {
     aspect-ratio: 1;
   }
 }
-.menu {
-  max-width: calc(100% - 50px);
-  top: $nav-height !important;
-  left: 50px !important;
-  margin-left: 0 !important;
-  @media (min-width: "450px") {
-    margin-left: 50px !important;
-    left: auto !important;
-  }
-}
-
-.vertical-scroll-container {
-  display: flex;
-  overflow-x: scroll;
-  max-width: 100vw;
-  @media (min-width: 800px) {
-    flex-direction: column;
-    overflow-x: hidden;
-    align-items: start;
-  }
-}
-.vh-100 {
-  height: 100vh;
-}
-/*Welcome Page*/

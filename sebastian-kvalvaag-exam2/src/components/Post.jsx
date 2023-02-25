@@ -3,8 +3,8 @@ import { useRef, useState } from "react";
 
 import ProfileWidget from "./ProfileWidget";
 import Button from "react-bootstrap/Button";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Dropdown from "react-bootstrap/Dropdown";
-import DropdownButton from "react-bootstrap/DropdownButton";
 
 import CommentForm from "./CommentForm";
 import commentIcon from "../icons/comment.svg";
@@ -13,9 +13,6 @@ function Post(props) {
   const http = useAxios();
 
   const [showComments, setShowComments] = useState(false);
-  /* const [like, setLike] = useState(false);
-  const [love, setLove] = useState(false);
-  const [hate, setHate] = useState(false); */
 
   const postRef = useRef();
 
@@ -26,33 +23,6 @@ function Post(props) {
     month: "2-digit",
     year: "2-digit",
   })}  ${date.toLocaleTimeString()}`;
-  //
-
-  /* const reactionCount = () => {
-    console.log(props);
-    if (props.children.reactions) {
-      const reactions = props.children.reactions;
-      reactions.map((reaction) => {
-        switch (reaction.symbol) {
-          case "👍":
-            console.log("👍");
-            setLike(true);
-            break;
-          case "😍":
-            console.log("😍");
-            setLove(true);
-            break;
-          case "🤬":
-            console.log("🤬");
-            setHate(true);
-            break;
-          default:
-            console.log(reaction);
-            break;
-        }
-      });
-    }
-  }; */
 
   const likePost = async (emoji) => {
     try {
@@ -67,10 +37,15 @@ function Post(props) {
   };
   return (
     <div
-      className="bg-info shadow-inset-sm my-4 pt-2 pb-4 px-3 post"
+      className="bg-info shadow-inset-sm my-2 pt-2 pb-4 px-3 post pe-4"
       ref={postRef}
     >
-      <ProfileWidget profile={props.children.author} />
+      {props.children.author ? (
+        <ProfileWidget profile={props.children.author} />
+      ) : (
+        <></>
+      )}
+
       <dt className="fs-7 mb-4">{formattedDate}</dt>
       <a href={`/posts?id=${props.children.id}`}>
         <h4 className="break-all">{props.children.title}</h4>
@@ -83,62 +58,70 @@ function Post(props) {
       <p className="break-all">{props.children.body}</p>
       <ul className="d-flex flex-wrap justify-content-between p-0">
         {props.children.tags ? (
-          props.children.tags.map((tag, i) => (
-            <li className="tag" key={i}>
-              {tag}
-            </li>
-          ))
+          props.children.tags.map((tag, i) => {
+            if (tag) {
+              return (
+                <li
+                  className="tag"
+                  key={i}
+                  onClick={() => {
+                    console.log(tag);
+                  }}
+                >
+                  {tag}
+                </li>
+              );
+            }
+            return <></>;
+          })
         ) : (
           <></>
         )}
       </ul>
       <div className="d-flex justify-content-between">
-        <DropdownButton
-          id="react-dropdown"
-          title={`React: ${props.children._count.reactions} `}
-          variant="info"
-          size="sm"
-          className="d-flex"
-          align="end"
-        >
-          <Dropdown.Item
+        <Dropdown as={ButtonGroup}>
+          <Button
+            variant="info"
             onClick={() => {
               likePost("👍");
             }}
           >
             👍
-          </Dropdown.Item>
-
-          <Dropdown.Item
+          </Button>
+          <Button
+            variant="info"
             onClick={() => {
               likePost("😍");
             }}
           >
             😍
-          </Dropdown.Item>
-
-          <Dropdown.Item
+          </Button>
+          <Button
+            variant="info"
             onClick={() => {
               likePost("🤬");
             }}
           >
             🤬
-          </Dropdown.Item>
-
-          {props.children.reactions ? (
-            props.children.reactions.map((reaction) => (
-              <Dropdown.Item
-                onClick={() => {
-                  likePost(reaction.symbol);
-                }}
-              >
-                {reaction.symbol}:{reaction.count}
-              </Dropdown.Item>
-            ))
-          ) : (
-            <></>
-          )}
-        </DropdownButton>
+          </Button>
+          <Dropdown.Toggle variant="info" id="dropdown-custom-2" />
+          <Dropdown.Menu className="bg-info">
+            {props.children.reactions ? (
+              props.children.reactions.map((reaction) => (
+                <Dropdown.Item
+                  onClick={() => {
+                    likePost(reaction.symbol);
+                  }}
+                >
+                  {reaction.symbol}
+                  <span className="fw-bold text-white">{reaction.count}</span>
+                </Dropdown.Item>
+              ))
+            ) : (
+              <></>
+            )}
+          </Dropdown.Menu>
+        </Dropdown>
 
         <Button
           variant="transparent"

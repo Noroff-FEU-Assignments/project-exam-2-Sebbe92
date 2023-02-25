@@ -4,7 +4,7 @@ export default function ProfileWidget(props) {
   return (
     <a
       href={`/profile?name=${props.profile.name}`}
-      className="d-flex align-items-center gap-3 mw-100px hover-border"
+      className="d-flex align-items-center gap-3  hover-border"
     >
       <div className="profile_img bg-primary">
         <img

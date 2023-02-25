@@ -8,12 +8,14 @@ import { useLocation } from "react-router";
 import ProfileWidget from "../components/ProfileWidget";
 import { Modal } from "react-bootstrap";
 import EditForm from "../components/EditForm";
+import Post from "../components/Post";
 
 export default function Profile(props) {
   const http = useAxios();
   const user = useContext(UserContext);
   const [profile, setProfile] = useState(null);
   const [editModal, setEditModal] = useState(null);
+  const [posts, setPosts] = useState(null);
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const name = params.get("name");
@@ -23,7 +25,18 @@ export default function Profile(props) {
       `profiles/${name}?_followers=true&_following=true&_posts=true`
     );
     setProfile(await response.data);
-    console.log(profile);
+    getPostByName(await response.data.name);
+  };
+  const getPostByName = async (name) => {
+    try {
+      const response = await http.get(
+        `profiles/${name}/posts?_comments=true&_reactions=true&_author=true`
+      );
+      setPosts(response.data);
+      console.log(response);
+    } catch (error) {
+      alert("error fetching posts");
+    }
   };
   const follow = async (name) => {
     try {
@@ -67,39 +80,44 @@ export default function Profile(props) {
   return (
     <div className="d-flex flex-column justify-content-center mt-nav-h">
       {profile ? (
-        <div>
+        <div className="">
           <ProfileImageWBanner
             banner={profile.banner}
             avatar={profile.avatar}
           />
-          <h1 className="text-center">{profile.name}</h1>
-          {profile.name === user[0].name ? (
-            <></>
-          ) : (
-            <>
-              {profile.followers.some(
-                (follower) => follower.name === user[0].name
-              ) ? (
-                <Button
-                  onClick={() => {
-                    unFollow(profile.name);
-                  }}
-                >
-                  UnFollow
-                </Button>
-              ) : (
-                <Button
-                  onClick={() => {
-                    follow(profile.name);
-                  }}
-                >
-                  Follow
-                </Button>
-              )}
-            </>
-          )}
+          <div className="d-flex flex-column align-items-center">
+            <h1 className="text-center">{profile.name}</h1>
+            {profile.name === user[0].name ? (
+              <></>
+            ) : (
+              <>
+                {profile.followers.some(
+                  (follower) => follower.name === user[0].name
+                ) ? (
+                  <Button
+                    variant="danger"
+                    onClick={() => {
+                      unFollow(profile.name);
+                    }}
+                    className="mx-auto"
+                  >
+                    UnFollow
+                  </Button>
+                ) : (
+                  <Button
+                    variant="success"
+                    onClick={() => {
+                      follow(profile.name);
+                    }}
+                  >
+                    Follow
+                  </Button>
+                )}
+              </>
+            )}
+          </div>
           <div className="container-fluid row">
-            <section className="col-12 col-lg-3">
+            <section className="col-12 col-lg-3 offset-lg-1 p-0">
               <h2>Following</h2>
               <ul className="vertical-scroll-container bg-info py-3 shadow-inset-sm">
                 {profile.following.map((profile, i) => (
@@ -111,7 +129,7 @@ export default function Profile(props) {
                 ))}
               </ul>
             </section>
-            <section className="col-12 col-lg-3">
+            <section className="col-12 col-lg-3 offset-lg-1 p-0">
               <h2>Followers</h2>
               <ul className="vertical-scroll-container bg-info py-3 shadow-inset-sm">
                 {profile.followers.map((profile) => (
@@ -124,29 +142,34 @@ export default function Profile(props) {
               </ul>
             </section>
             <section className="col-12 col-lg-4">
+              <h2>Posts</h2>
               {profile.name === user[0].name ? (
                 <ul>
-                  {profile.posts.map((post, i) => (
-                    <li key={i}>
-                      <h4>{post.title}</h4>{" "}
-                      <Button
-                        onClick={() => {
-                          setEditModal(post.id);
-                        }}
-                      >
-                        edit
-                      </Button>
-                    </li>
-                  ))}
+                  {posts ? (
+                    posts.map((post, i) => (
+                      <li key={i}>
+                        <Post>{post}</Post>
+                        <Button
+                          onClick={() => {
+                            console.log(post);
+                            setEditModal(post.id);
+                          }}
+                        >
+                          edit
+                        </Button>
+                      </li>
+                    ))
+                  ) : (
+                    <>No posts</>
+                  )}
                 </ul>
               ) : (
                 <ul>
-                  <h2>Posts</h2>
-                  {profile.posts.map((post, i) => (
-                    <li key={i}>
-                      <h4>{post.title}</h4>
-                    </li>
-                  ))}
+                  {posts ? (
+                    posts.map((post) => <Post>{post}</Post>)
+                  ) : (
+                    <>no posts</>
+                  )}
                 </ul>
               )}
             </section>
@@ -167,9 +190,6 @@ export default function Profile(props) {
               <Modal.Body>
                 <EditForm id={editModal} />
               </Modal.Body>
-              <Modal.Footer>
-                <Button onClick={props.onHide}>Close</Button>
-              </Modal.Footer>
             </Modal>
           </div>
         </div>
