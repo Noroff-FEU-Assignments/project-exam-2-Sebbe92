@@ -26,7 +26,6 @@ export default function SignUpForm() {
       const fullEmail = email + "@stud.noroff.no";
       const newUser = { name, email: fullEmail, password };
       const response = await http.post("auth/register", newUser);
-
       redirect("/login");
       return response;
     } catch (error) {
@@ -104,7 +103,7 @@ export default function SignUpForm() {
               aria-describedby="email"
               onChange={(e) => {
                 validateInput(e.target);
-                console.log(e.target.value);
+
                 setEmail(e.target.value);
               }}
             />

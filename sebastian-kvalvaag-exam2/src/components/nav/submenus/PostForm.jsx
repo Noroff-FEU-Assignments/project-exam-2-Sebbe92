@@ -18,8 +18,9 @@ export default function PostForm(props) {
   const postObject = { title, tags, media, body };
   const post = async () => {
     try {
+      //Send Post request with postObject
       const response = await http.post("posts", postObject);
-
+      //refresh brower
       window.location.reload(false);
       return response;
     } catch (error) {
@@ -28,15 +29,16 @@ export default function PostForm(props) {
     }
   };
   const testPost = (post) => {
+    //if post has title or the length is less than 3 setError
     if (!post.title || post.title.length < 3) {
       setTitleError("Title must be at least 3 characters long");
       return false;
     } else {
       setTitleError("");
     }
+    //if post has tags or there are more than five tags set error
     if (post.tags) {
       if (post.tags < 5) {
-        console.log(post.tags.length);
         setTagsError("No more that 5 tags allowed");
         return false;
       } else {
@@ -45,12 +47,14 @@ export default function PostForm(props) {
     }
     if (post.media) {
     }
+    //if post has no body set error
     if (!post.body) {
       setBodyError("body is required");
       return false;
     }
     return true;
   };
+  //only works for post form should be fixed!!
   const clearForm = (form) => {
     form.children[0].children[1].value = "";
     form.children[1].children[1].value = "";

@@ -82,6 +82,7 @@ function Post(props) {
         <Dropdown as={ButtonGroup}>
           <Button
             variant="info"
+            className="fs-4"
             onClick={() => {
               likePost("👍");
             }}
@@ -90,6 +91,7 @@ function Post(props) {
           </Button>
           <Button
             variant="info"
+            className="fs-4"
             onClick={() => {
               likePost("😍");
             }}
@@ -98,6 +100,7 @@ function Post(props) {
           </Button>
           <Button
             variant="info"
+            className="fs-4"
             onClick={() => {
               likePost("🤬");
             }}
@@ -107,8 +110,9 @@ function Post(props) {
           <Dropdown.Toggle variant="info" id="dropdown-custom-2" />
           <Dropdown.Menu className="bg-info">
             {props.children.reactions ? (
-              props.children.reactions.map((reaction) => (
+              props.children.reactions.map((reaction, i) => (
                 <Dropdown.Item
+                  key={i}
                   onClick={() => {
                     likePost(reaction.symbol);
                   }}

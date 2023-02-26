@@ -43,7 +43,7 @@ export default function EditForm(props) {
       console.log(response);
       window.location.reload(false);
     } catch (error) {
-      console.log(error);
+      alert(error.response.data.status);
     }
   };
   const deletePost = async (id) => {
@@ -52,8 +52,7 @@ export default function EditForm(props) {
       alert("post deleted");
       console.log(response);
     } catch (error) {
-      alert(error);
-      console.log(error);
+      alert(error.response.data.status);
     }
   };
   useEffect(() => {

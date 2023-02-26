@@ -29,11 +29,11 @@ export default function Settings() {
       tempUser.avatar = avatar;
       tempUser.banner = banner;
       setUser(tempUser);
+      window.location.reload(false);
       return response;
     } catch (error) {
       alert("error");
       console.log(error);
-      return;
     }
   };
   return (

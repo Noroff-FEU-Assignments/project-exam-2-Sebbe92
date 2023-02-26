@@ -17,7 +17,6 @@ export default function Following(props) {
       return response;
     } catch (error) {
       alert(error.response.data.errors[0].message);
-      console.log(error);
     }
   };
 
@@ -31,7 +30,6 @@ export default function Following(props) {
       return response;
     } catch (error) {
       alert(error.response.data.errors[0].message);
-      console.log(error);
     }
   };
   useEffect(() => {
@@ -42,10 +40,10 @@ export default function Following(props) {
     <div>
       {following ? (
         following.map((profile) => (
-          <div className="w-100 d-flex justify-content-between align-items-center my-2">
+          <div className="d-flex justify-content-between align-items-center my-3">
             <ProfileWidget profile={profile} />
             <Button
-              variant="transparent"
+              variant="info"
               onClick={() => {
                 unFollow(profile.name);
               }}

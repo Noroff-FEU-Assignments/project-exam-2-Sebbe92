@@ -16,7 +16,6 @@ export default function CommentForm(props) {
       return response;
     } catch (error) {
       setError(error.response.data.errors[0].message);
-      console.log(error.response.data.errors[0]);
     }
   };
   return (

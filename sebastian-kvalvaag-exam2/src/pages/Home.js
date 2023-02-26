@@ -14,14 +14,7 @@ export default function Home() {
   const [error, setError] = useState(null);
   const [commentModal, setCommentModal] = useState({ show: false, id: null });
   const postsRef = useRef(null);
-  /* const tooTopButtonRef = useRef(null); */
 
-  /*  const handleCommentModalShow = (id) => {
-    setCommentModal({ show: true, id: id });
-  };
-  const handleCommentModalClose = () => {
-    setCommentModal({ show: false, id: null });
-  }; */
   const getPosts = async (page) => {
     try {
       setError(null);
@@ -38,8 +31,10 @@ export default function Home() {
         setPosts(response.data);
       }
     } catch (error) {
-      setError(error.response.data.status);
-      console.log(error);
+      setError(
+        error.response.data.status,
+        "try waiting 20 sec then refresh the page"
+      );
     } finally {
       setLoading(false);
     }
@@ -49,15 +44,8 @@ export default function Home() {
     getPosts(page + 1);
     setPage(page + 1);
   };
-  /*  const filterByTag = async (tag) => {
-    const response = await http.get(
-      `/posts?limit=${postLimit}&offset=${
-        postLimit * page
-      }&_author=true&_comments=true&_tag=${tag}`
-    );
-    setPosts(response.data);
-    return response;
-  }; */
+
+  //creates an oberserver that loads more posts when in view
   const observer = new IntersectionObserver(
     (entries) => {
       const entry = entries[0];
@@ -68,40 +56,38 @@ export default function Home() {
     },
     { threshold: 0.1 }
   );
-  const scrollDetector = () => {
-    if (window.pageYOffset > 200) {
-      console.log("to top");
-    } else {
-      console.log("hidden");
-    }
-  };
+
   useEffect(() => {
-    window.removeEventListener("scroll", scrollDetector);
-    window.addEventListener("scroll", scrollDetector);
     if (postsRef.current.children[0]) {
       observer.observe(Array.from(postsRef.current.children).at(-1));
     }
-
     if (posts) return;
     getPosts(0);
   }, [posts]); // eslint-disable-line
 
   return (
-    <ModalContext.Provider value={[commentModal, setCommentModal]}>
-      <div className="d-flex flex-column justify-content-center mt-nav-h">
-        <CenteredModal commentModal={commentModal} />
-        <div className="mt-2  position-relative">
-          {error ? <>Looks like there was an error : {error}</> : <></>}
-          <div ref={postsRef} className="d-flex flex-column align-items-center">
-            {posts ? (
-              posts.map((post, i) => <Post key={`${post.id}${i}`}>{post}</Post>)
-            ) : (
-              <></>
-            )}
+    <>
+      <ModalContext.Provider value={[commentModal, setCommentModal]}>
+        <div className="d-flex flex-column justify-content-center mt-nav-h">
+          <CenteredModal commentModal={commentModal} />
+          <div className="mt-2  position-relative">
+            {error ? <>Looks like there was an error : {error}</> : <></>}
+            <div
+              ref={postsRef}
+              className="d-flex flex-column align-items-center"
+            >
+              {posts ? (
+                posts.map((post, i) => (
+                  <Post key={`${post.id}${i}`}>{post}</Post>
+                ))
+              ) : (
+                <></>
+              )}
+            </div>
+            {loading ? <>loading...</> : <></>}
           </div>
-          {loading ? <>loading...</> : <></>}
         </div>
-      </div>
-    </ModalContext.Provider>
+      </ModalContext.Provider>
+    </>
   );
 }

@@ -9,6 +9,7 @@ export default function Posts() {
   const http = useAxios();
 
   const [post, setPost] = useState(null);
+  const [error, setError] = useState(null);
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const id = params.get("id");
@@ -20,8 +21,7 @@ export default function Posts() {
       );
       setPost(await response.data);
     } catch (error) {
-      alert("error");
-      console.log(error);
+      setError("Error: " + error.response.data.status);
     }
   };
 
@@ -32,7 +32,9 @@ export default function Posts() {
 
   return (
     <div className="d-flex flex-column justify-content-center mt-nav-h ">
-      {post ? (
+      {error ? (
+        <>{error}</>
+      ) : post ? (
         <>
           <Post>{post}</Post>{" "}
           {post.reactions ? (

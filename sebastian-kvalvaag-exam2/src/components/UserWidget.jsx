@@ -17,7 +17,6 @@ export default function UserWidget() {
     setUser(null);
     window.location.href = "/";
   }
-  console.log(user);
   return (
     <a
       href={`profile?name=${user.name}`}
@@ -49,7 +48,7 @@ export default function UserWidget() {
       </div>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Logout</Modal.Title>
         </Modal.Header>
         <Modal.Body>Are you sure you want to log out?</Modal.Body>
         <Modal.Footer>

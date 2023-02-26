@@ -8,20 +8,20 @@ import settingsIcon from "../../icons/settings.svg";
 import MenuContext from "../../context/MenuContext";
 
 export default function SideNav() {
-  const [currentMenuPage, setCurrentMenuPage] = useContext(MenuContext);
+  const setCurrentMenuPage = useContext(MenuContext);
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => {
     setShow(true);
   };
-  console.log(currentMenuPage);
+
   return (
-    <div className="position-fixed  end-0 center d-flex flex-column sec-nav-btns-y z-index-10">
+    <div className="position-fixed end-0 center d-flex flex-column sec-nav-btns-y z-index-10">
       <Button
         className="side-nav_button mb-2"
         onClick={() => {
-          setCurrentMenuPage(1);
+          setCurrentMenuPage[1](1);
           handleShow();
         }}
         variant="secondary"
@@ -31,7 +31,7 @@ export default function SideNav() {
       <Button
         className="side-nav_button mb-2"
         onClick={() => {
-          setCurrentMenuPage(2);
+          setCurrentMenuPage[1](2);
           handleShow();
         }}
         variant="secondary"
@@ -41,7 +41,7 @@ export default function SideNav() {
       <Button
         className="side-nav_button mb-2"
         onClick={() => {
-          setCurrentMenuPage(3);
+          setCurrentMenuPage[1](3);
           handleShow();
         }}
         variant="secondary"
@@ -51,7 +51,7 @@ export default function SideNav() {
       <Button
         className="side-nav_button mb-2"
         onClick={() => {
-          setCurrentMenuPage(4);
+          setCurrentMenuPage[1](4);
           handleShow();
         }}
         variant="secondary"

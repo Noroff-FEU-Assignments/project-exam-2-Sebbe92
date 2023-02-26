@@ -33,7 +33,6 @@ export default function Profile(props) {
         `profiles/${name}/posts?_comments=true&_reactions=true&_author=true`
       );
       setPosts(response.data);
-      console.log(response);
     } catch (error) {
       alert("error fetching posts");
     }
@@ -44,7 +43,7 @@ export default function Profile(props) {
       getProfile();
       return response;
     } catch (error) {
-      console.log(error);
+      alert(error.response.data.status);
     }
   };
   const unFollow = async (name) => {
@@ -53,25 +52,9 @@ export default function Profile(props) {
       getProfile();
       return response;
     } catch (error) {
-      console.log(error);
+      alert(error.response.data.status);
     }
   };
-  /* async function getProfilePosts(page) {
-    try {
-      const response = await http.get(
-        `/profiles/${props.name}?limit=${postLimit}&offset=${page}&_author=true&_comments=true`
-      );
-      if (posts) {
-        const temp = posts.concat(response.data);
-        console.log(temp);
-        setPosts(temp);
-      } else {
-        setPosts(response.data);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  } */
   useEffect(() => {
     if (profile) return;
     getProfile();
@@ -85,7 +68,7 @@ export default function Profile(props) {
             banner={profile.banner}
             avatar={profile.avatar}
           />
-          <div className="d-flex flex-column align-items-center">
+          <div className="d-flex flex-column align-items-center ">
             <h1 className="text-center">{profile.name}</h1>
             {profile.name === user[0].name ? (
               <></>
@@ -116,7 +99,7 @@ export default function Profile(props) {
               </>
             )}
           </div>
-          <div className="container-fluid row">
+          <div className="container-fluid row m-0 p-0">
             <section className="col-12 col-lg-3 offset-lg-1 p-0">
               <h2>Following</h2>
               <ul className="vertical-scroll-container bg-info py-3 shadow-inset-sm">
@@ -150,8 +133,8 @@ export default function Profile(props) {
                       <li key={i}>
                         <Post>{post}</Post>
                         <Button
+                          variant="secondary"
                           onClick={() => {
-                            console.log(post);
                             setEditModal(post.id);
                           }}
                         >
