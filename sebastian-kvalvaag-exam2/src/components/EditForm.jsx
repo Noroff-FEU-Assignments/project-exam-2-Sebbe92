@@ -49,8 +49,9 @@ export default function EditForm(props) {
   const deletePost = async (id) => {
     try {
       const response = await http.delete(`/posts/${id}`);
-      alert("post deleted");
-      console.log(response);
+
+      window.location.reload(false);
+      return response;
     } catch (error) {
       alert(error.response.data.status);
     }
