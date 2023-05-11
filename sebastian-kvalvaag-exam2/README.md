@@ -1,40 +1,59 @@
 Sebastian Kvalvåg Exam-2 project Social Hub
 
-# Welcome
+# Social Hub
 
-To Social Hub, this is a social platform where you sign up with a noroff email
-and start posting. This is a school project and not intended for commercial use. Hope you enjoy!
+Is a social platform where you sign up
+and start posting you can follow other people, comment or react to their posts. This is a school project and not intended for commercial use. Hope you enjoy!
 
-# Specifications
+## Description
 
-axios: 1.2.4
-react-bootstrap: 5.2.3
-react: 18.2.0
-
-# Remarks
+As states above socialHub is a school project. My aim was to show that i am capable of making a fully working front end app for a social network. On this project i decided to put a little more time into coding and not focus as much on design and, i think it payed of. The app seems intuative from my limited user data, the design seemed boring to me at first but the more i used it the more i appreciated the simplicity.
 
 -uses intersection observer for lazy loads
 -there are three different routers in the project, the logged out router the logged in router and the third is the second nav witch uses a menu context to determine which menu to display when the overlay opens
 
 -had to disable lint a couple of places search "//lint-disable-line" to find them
 
-# Bugs
+## Built With
 
--refreshing page or navigating pages that calls api to many times causes the api to reply with too many calls. The same is true for the profile search because i need to make several calls to get all the profiles. the profiles are saved in context but when refreshing the page and opening profiles search the all the calls runs.
--have had one instance where you could sign up but not log in from an iphone. not sure what the issue was but i cant replicate it.
+-React[https://react.dev/]
+-React Bootstrap[https://react-bootstrap.github.io/]
 
-# scrapped features
+## Getting Started
 
--posts opening closing when in viewport
--filter by tag (maybe)
--comment reply
--react with own emoji
+### Installing
 
-# Available Scripts
+1. Clone the repo:
+
+```bash
+git clone git@github.com:Noroff-FEU-Assignments/project-exam-2-Sebbe92.git
+```
+
+Github CLI
+
+```bash
+gh repo clone Noroff-FEU-Assignments/project-exam-2-Sebbe92
+git clone git@github.com:NoroffFEU/portfolio-1-example.git
+```
+
+or
+[https://github.com/Noroff-FEU-Assignments/project-exam-2-Sebbe92.git]
+
+2. Install the dependencies:
+
+Make sure you are in the right directory then type in terminal:
+
+```bash
+npm install
+```
+
+### Running
 
 In the project directory, you can run:
 
-## `npm start`
+```bash
+npm run start
+```
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
@@ -42,57 +61,25 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
-## `npm test`
+```bash
+npm test
+```
 
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-## `npm run build`
+```bash
+npm run build
+```
 
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Contributing
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+If you wish to contribute you can send me an email at: kvalvagsebastian@gmail.com
 
-## `npm run eject`
+## Contact
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-# Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-## Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-## Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-## Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-## Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-# Deployment
-
-https://main--beautiful-llama-ef1bd5.netlify.app/
-
-# `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[Github] [https://github.com/Sebbe92]
+Email: kvalvagsebstian@gmail.com
